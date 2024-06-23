@@ -1,0 +1,11 @@
+analyzer:
+  errors:
+    prefer_const_literals_to_create_immutables: ignore
+    unused_element: ignore
+    unused_import: ignore
+include: package:flutter_lints/flutter.yaml
+linter:
+  rules:
+    avoid_print: false  
+    prefer_single_quotes: false  
+    prefer_const_constructors: false

@@ -1,0 +1,72 @@
+name: dooflix
+description: "A Movies Streaming app"
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.4 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  tmdb_api: ^2.2.0
+  flutter_bloc: ^8.1.5
+  equatable: ^2.0.5
+  bloc: ^8.1.4
+  dio: ^5.4.3+1
+  # pretty_dio_logger: ^1.3.1
+  url_launcher: ^6.3.0
+  cached_network_image: ^3.3.1
+  get: ^4.6.6
+  responsive_grid_list: ^1.4.0
+  getwidget: ^4.0.0
+  load_items: ^0.5.0
+  river_player: ^0.1.3
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  fluttertoast: ^8.2.5
+  # video_player_web_hls: ^0.1.1
+  # video_player: 
+  http: ^1.2.1
+  video_player: ^2.8.6
+  flutter_colorpicker: ^1.1.0
+  jikan_api: ^2.2.1
+  get_it: ^7.7.0
+  pretty_logger: ^1.0.0
+  pretty_dio_logger: ^1.3.1
+  share_plus: ^9.0.0
+  orientation_widget: ^1.1.0
+  http_proxy: ^1.2.2
+  http_proxy_override: ^1.0.0
+  lehttp_overrides: ^1.0.3
+
+  # flutter_vlc_player: ^7.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  retrofit_generator: ^8.1.0
+  build_runner: ^2.4.10
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
