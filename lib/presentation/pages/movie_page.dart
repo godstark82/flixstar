@@ -86,7 +86,7 @@ SliverAppBar _buildAppBar(BuildContext context, Movie movie) {
                                       ),
                                     )));
                       } else {
-                        Utils.toast('Coming Soon...');
+                      
                       }
                     },
                   );

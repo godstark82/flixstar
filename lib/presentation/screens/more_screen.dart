@@ -30,7 +30,6 @@ class MoreOptionScreen extends StatelessWidget {
           actions: [
             TextButton(
                 onPressed: () {
-                  Utils.toast('Coming Soon');
                 },
                 child: Text('Login'))
           ]),
