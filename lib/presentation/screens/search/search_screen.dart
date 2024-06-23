@@ -7,7 +7,6 @@ import 'package:dooflix/presentation/widgets/my_snack.dart';
 import 'package:dooflix/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 
