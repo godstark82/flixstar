@@ -28,8 +28,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:http_proxy_override/http_proxy_override.dart';
-import 'package:lehttp_overrides/lehttp_overrides.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();

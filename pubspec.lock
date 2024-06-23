@@ -456,22 +456,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
-  http_proxy:
-    dependency: "direct main"
-    description:
-      name: http_proxy
-      sha256: "08d9f1652acdc11d977e1593de112b093f1fbc7c81153b9abfaf34b2ca011b51"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.2"
-  http_proxy_override:
-    dependency: "direct main"
-    description:
-      name: http_proxy_override
-      sha256: c2931b90cb545cb759d4d043e961bb1439e4647bd758a1737156fabd8bc45fa8
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   io:
     dependency: transitive
     description:
@@ -528,14 +512,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
-  lehttp_overrides:
-    dependency: "direct main"
-    description:
-      name: lehttp_overrides
-      sha256: "7cb699bf8c7b24d01f0cd25dcf83ff300258b44ac94e860484b6c7c0134b36b7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.3"
   lints:
     dependency: transitive
     description:

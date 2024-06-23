@@ -14,13 +14,17 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
         with:
-          distribution: 'zulu'
-          java-version: '12'
+          distribution: "zulu"
+          java-version: "12"
       - uses: subosito/flutter-action@v2
         with:
-          channel: 'stable'
+          channel: "stable"
           architecture: x64
+      # to Run flutter clean and flutter pub get
+      - run: flutter clean
+      - run: flutter pub get
 
+      # to build apk
       - run: flutter build apk --release
       - name: Push to Releases
         uses: ncipollo/release-action@v1
@@ -28,11 +32,5 @@ jobs:
           artifacts: "build/app/outputs/apk/release/*"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.TOKEN }}
-
-
-
-
-
-
 # push to master, main, develop
 # pull request on main master
