@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:jikan_api/jikan_api.dart';
 
+// ignore: must_be_immutable
 abstract class AnimeGenreEntity extends Equatable {
-  final String title;
-  final int id;
-  final List<Anime> animes;
+  String? title;
+  int? id;
+  List<Anime>? animes;
 
-  const AnimeGenreEntity(
-      {required this.title, required this.id, required this.animes});
+  AnimeGenreEntity({this.title, this.id, this.animes});
   @override
   List<Object?> get props => [title, id, animes];
 }

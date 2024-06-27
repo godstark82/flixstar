@@ -1,9 +1,7 @@
 // auto fetch movie list from genre
 import 'package:dooflix/features/anime/data/models/anime_genre_model.dart';
 import 'package:dooflix/features/anime/presentation/widgets/anime_card.dart';
-import 'package:dooflix/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class GenreAnimeList extends StatelessWidget {
   final AnimeGenreModel genre;
@@ -28,7 +26,7 @@ class GenreAnimeList extends StatelessWidget {
               ),
               SizedBox(width: 5),
               Text(
-                genre.title,
+                genre.title ?? 'UNTITLED',
                 style: Theme.of(context).textTheme.titleLarge,
               )
             ]),
@@ -43,9 +41,9 @@ class GenreAnimeList extends StatelessWidget {
           child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: genre.animes.length,
+              itemCount: genre.animes?.length,
               itemBuilder: (context, index) {
-                return AnimeCard(anime: genre.animes.elementAt(index));
+                return AnimeCard(anime: genre.animes!.elementAt(index));
               }),
         ),
       ],

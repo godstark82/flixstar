@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dooflix/core/resources/data_state.dart';
+import 'package:dooflix/features/anime/data/models/anime_genre_model.dart';
 import 'package:dooflix/features/anime/domain/repositories/anime_repository.dart';
 import 'package:jikan_api/jikan_api.dart';
 
@@ -23,7 +24,7 @@ class AnimeRepoImpl implements AnimeRepository {
   }
 
   @override
-  Future<DataState<BuiltList<Genre>>> getAnimeGenres(
+  Future<DataState<BuiltList<Genre>>> getGenres(
       {required GenreType type}) async {
     try {
       return DataSuccess(await jikan.getAnimeGenres(type: type));
@@ -75,57 +76,26 @@ class AnimeRepoImpl implements AnimeRepository {
   }
 
   @override
-  Future<DataState<BuiltList<Anime>>> getAnimeByPopularity(
-      {required int page}) async {
+  Future<DataState<List<AnimeGenreModel>>> getAllGenresData() async {
     try {
-      return DataSuccess(await jikan.getTopAnime());
-    } catch (e) {
-      return DataFailed(DioException(requestOptions: RequestOptions()));
-    }
-  }
+      final genres = await getGenres(type: GenreType.genres);
+      if (genres.data == null) {
+        return DataFailed(DioException(requestOptions: RequestOptions()));
+      }
 
-  @override
-  Future<DataState<BuiltList<Anime>>> getAnimeByFavorites(
-      {required int page}) async {
-    try {
-      return DataSuccess(await jikan.getTopAnime());
-    } catch (e) {
-      return DataFailed(DioException(requestOptions: RequestOptions()));
-    }
-  }
+      final futures = genres.data!.map((genre) async {
+        final animeResponse = await getAnimeByGenre(id: genre.malId, page: 1);
+        return AnimeGenreModel(
+          title: genre.name,
+          id: genre.malId,
+          animes: List.from(animeResponse.data!.toList()),
+        );
+      }).toList();
 
-  @override
-  Future<DataState<BuiltList<Anime>>> getAnimeByYear(
-      {required int year, required int page}) async {
-    try {
-      return DataSuccess(await jikan.searchAnime(
-        sort: 'year',
-      ));
+      final data = await Future.wait(futures);
+      return DataSuccess(data);
     } catch (e) {
-      return DataFailed(DioException(requestOptions: RequestOptions()));
-    }
-  }
-
-  @override
-  Future<DataState<BuiltList<Anime>>> getAnimeBySeason(
-      {required SeasonType season,
-      required int year,
-      required int page}) async {
-    try {
-      return DataSuccess(
-          await jikan.getSeason(season: season, year: year, page: page));
-    } catch (e) {
-      return DataFailed(DioException(requestOptions: RequestOptions()));
-    }
-  }
-
-  @override
-  Future<DataState<BuiltList<Anime>>> getAnimeByType(
-      {required AnimeType type, required int page}) async {
-    try {
-      return DataSuccess(await jikan.searchAnime(type: type));
-    } catch (e) {
-      return DataFailed(DioException(requestOptions: RequestOptions()));
+      return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
     }
   }
 }

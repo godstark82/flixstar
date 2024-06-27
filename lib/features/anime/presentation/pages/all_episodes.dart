@@ -1,12 +1,8 @@
-import 'package:dooflix/api/gogo_api.dart';
 import 'package:dooflix/features/anime/data/models/source_model.dart';
 import 'package:dooflix/features/anime/presentation/widgets/anime_episode_card.dart';
-import 'package:dooflix/injection_container.dart';
-import 'package:dooflix/presentation/widgets/episode_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jikan_api/jikan_api.dart';
-import 'package:load_items/load_items.dart';
 
 class AllEpisodes extends StatefulWidget {
   final Anime anime;

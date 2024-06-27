@@ -1,35 +1,17 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dooflix/api/gogo_api.dart';
 import 'package:dooflix/core/routes/routes.dart';
-import 'package:dooflix/core/utils/toast.dart';
-import 'package:dooflix/data/models/movie_model.dart';
-import 'package:dooflix/data/models/source_model.dart';
 import 'package:dooflix/features/anime/data/models/source_model.dart';
 import 'package:dooflix/features/anime/presentation/widgets/anime_episode_card.dart';
 import 'package:dooflix/injection_container.dart';
-import 'package:dooflix/logic/blocs/history_bloc.dart/history_bloc.dart';
-import 'package:dooflix/logic/blocs/history_bloc.dart/history_event.dart';
-import 'package:dooflix/logic/blocs/library_bloc/library_bloc.dart';
-import 'package:dooflix/logic/blocs/library_bloc/library_event.dart';
-import 'package:dooflix/logic/blocs/library_bloc/library_state.dart';
-import 'package:dooflix/logic/blocs/video_player_bloc/video_player_bloc.dart';
-import 'package:dooflix/logic/cubits/movie_details_cubit/movie_detail_cubit.dart';
-import 'package:dooflix/logic/cubits/movie_details_cubit/movie_detail_state.dart';
-import 'package:dooflix/presentation/common/video_player.dart';
-import 'package:dooflix/presentation/pages/movie_page.dart';
-import 'package:dooflix/presentation/widgets/episode_card.dart';
-import 'package:dooflix/presentation/widgets/heading_2.dart';
-import 'package:dooflix/presentation/widgets/heading_widget.dart';
-import 'package:dooflix/presentation/widgets/movie_card.dart';
-import 'package:dooflix/presentation/widgets/play_button.dart';
+import 'package:dooflix/features/movie/presentation/pages/movie_page.dart';
+import 'package:dooflix/common/heading_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:jikan_api/jikan_api.dart';
 import 'package:load_items/load_items.dart';
@@ -170,10 +152,11 @@ class AnimeDetailsPage extends StatelessWidget {
                     GoAnime go = GoAnime(sl());
 
                     if (currentItems.isEmpty) {
-                      sources = await go.getEpisodesLinksOfAnime(anime);
+                      sources = await go.getEpisodesLinksOfAnime(anime, count: 10);
                     }
                     return sources;
                   },
+                  
                   itemBuilder: (context, source, index) {
                     return AnimeEpisodeCard(
                         anime: anime, source: source, index: index);

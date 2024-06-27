@@ -1,23 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dooflix/data/models/movie_model.dart';
-import 'package:dooflix/features/anime/presentation/pages/anime_details.dart';
-import 'package:dooflix/logic/blocs/history_bloc.dart/history_bloc.dart';
-import 'package:dooflix/logic/blocs/history_bloc.dart/history_event.dart';
-import 'package:dooflix/logic/blocs/history_bloc.dart/history_state.dart';
-import 'package:dooflix/logic/blocs/library_bloc/library_bloc.dart';
-import 'package:dooflix/logic/blocs/library_bloc/library_event.dart';
-import 'package:dooflix/logic/blocs/library_bloc/library_state.dart';
-import 'package:dooflix/logic/cubits/movie_details_cubit/movie_detail_cubit.dart';
-import 'package:dooflix/logic/cubits/movie_details_cubit/movie_detail_event.dart';
-import 'package:dooflix/logic/cubits/tv_details_cubit/tv_detail_event.dart';
-import 'package:dooflix/presentation/pages/movie_page.dart';
-import 'package:dooflix/presentation/widgets/my_snack.dart';
 import 'package:dooflix/core/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:jikan_api/jikan_api.dart';
 
 class AnimeCard extends StatelessWidget {

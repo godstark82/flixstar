@@ -1,8 +1,9 @@
 import 'package:dooflix/features/anime/domain/entities/anime_genre_entity.dart';
 import 'package:jikan_api/jikan_api.dart';
 
+// ignore: must_be_immutable
 class AnimeGenreModel extends AnimeGenreEntity {
-  const AnimeGenreModel({
+   AnimeGenreModel({
     required super.title,
     required super.id,
     required super.animes,
@@ -22,7 +23,7 @@ class AnimeGenreModel extends AnimeGenreEntity {
     return {
       'name': title,
       'mal_id': id,
-      'animes': animes.map((item) => item.toJson())
+      'animes': animes?.map((item) => item.toJson())
     };
   }
 }

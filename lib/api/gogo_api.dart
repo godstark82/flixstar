@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:dooflix/features/anime/data/models/anime_details_model.dart';
 import 'package:dooflix/features/anime/data/models/source_model.dart';
 import 'package:jikan_api/jikan_api.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const goAnimeBaseUrl =
     'https://api-consumet-org-brown.vercel.app/anime/gogoanime';
@@ -17,13 +16,13 @@ class GoAnime {
     // dio.interceptors.add(PrettyDioLogger(requestBody: false));
   }
 
-  Future<List<AnimeSource>> getEpisodesLinksOfAnime(
-      Anime anime) async {
+  Future<List<AnimeSource>> getEpisodesLinksOfAnime(Anime anime,
+      {required int count}) async {
     // int count = page * 20;
     int i = 0;
     List<AnimeSource> animeSources = [];
     await Future.wait<void>([
-      for (i = 1; i <= anime.episodes!; i++)
+      for (i = 1; i <= count; i++)
         _getLinksOfEpisode(anime, episode: i).then((v) {
           animeSources.add(v);
         })
