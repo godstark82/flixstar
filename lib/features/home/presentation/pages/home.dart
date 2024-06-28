@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return KeyboardWidget(
-      hasFocus: true,
+      // backgroundColor: Colors.white,
       bindings: [
         KeyAction(LogicalKeyboardKey.f11, 'FULLSCREEN', () async {
           final Size deviceSize = await FullScreenWindow.getScreenSize(context);

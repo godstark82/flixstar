@@ -15,15 +15,8 @@ class SeachRepoImpl implements SearchRepo {
           .map((e) => Map<String, dynamic>.from(e))
           .toList();
       List<Movie> movies = result.map((e) => Movie.fromJson(e)).toList();
-      final futures = movies.map((movie) async {
-        movie.source = await api.getMovieSource(movie.id!);
-        return movie;
-      }).toList();
 
-      // Wait for all futures to complete
-      final updatedMovies = await Future.wait(futures);
-      updatedMovies.removeWhere((movie) => movie.source == null);
-      return DataSuccess(updatedMovies);
+      return DataSuccess(movies);
     } catch (e) {
       rethrow;
     }
@@ -37,17 +30,8 @@ class SeachRepoImpl implements SearchRepo {
           .map((e) => Map<String, dynamic>.from(e))
           .toList();
       List<TvModel> movies = result.map((e) => TvModel.fromJson(e)).toList();
-      final futures = movies.map((movie) async {
-        movie.source = await api.getMovieSource(movie.id!);
-        return movie;
-      }).toList();
 
-      // Wait for all futures to complete
-      final updatedMovies = await Future.wait(futures);
-      updatedMovies.removeWhere((movie) => movie.source == null);
-      // print(result.runtimeType);
-
-      return DataSuccess(updatedMovies);
+      return DataSuccess(movies);
     } catch (e) {
       rethrow;
     }
