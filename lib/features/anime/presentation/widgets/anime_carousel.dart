@@ -11,11 +11,6 @@ SliverLayoutBuilder customAnimeCarousel(BuildContext context,
     final expandedHeight = context.height * 0.35;
     return SliverAppBar(
       primary: true,
-      leadingWidth: 20,
-      leading: Icon(
-        Icons.flutter_dash,
-        size: 32,
-      ),
       actions: [
         IconButton(
             onPressed: () {
@@ -24,8 +19,14 @@ SliverLayoutBuilder customAnimeCarousel(BuildContext context,
             icon: Icon(Icons.search))
       ],
       title: Text(
-        'Crucifix',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+        'FlixVibes',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, shadows: [
+          Shadow(
+            color: Colors.black,
+            blurRadius: 16
+            
+          ),
+        ]),
       ),
       forceMaterialTransparency: true,
       expandedHeight: expandedHeight,

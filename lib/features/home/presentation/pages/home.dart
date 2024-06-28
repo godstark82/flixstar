@@ -5,7 +5,11 @@ import 'package:dooflix/features/home/presentation/pages/home_screen.dart';
 import 'package:dooflix/features/home/presentation/pages/more_screen.dart';
 import 'package:dooflix/features/home/presentation/pages/tv_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fullscreen_window/fullscreen_window.dart';
+import 'package:get/get.dart';
+import 'package:keymap/keymap.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,21 +27,41 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Center(child: bottomNavScreen.elementAt(currentIndex)),
-        bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.grey,
-            showUnselectedLabels: true,
-            selectedLabelStyle: TextStyle().copyWith(color: Colors.grey),
-            unselectedLabelStyle: TextStyle().copyWith(color: Colors.white),
-            items: bottomNavItems,
-            currentIndex: currentIndex,
-            onTap: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            }));
+    return KeyboardWidget(
+      hasFocus: true,
+      bindings: [
+        KeyAction(LogicalKeyboardKey.f11, 'FULLSCREEN', () async {
+          final Size deviceSize = await FullScreenWindow.getScreenSize(context);
+          if (context.width == deviceSize.width &&
+              context.height == deviceSize.height) {
+            FullScreenWindow.setFullScreen(false);
+          } else {
+            FullScreenWindow.setFullScreen(true);
+          }
+        }),
+        KeyAction(LogicalKeyboardKey.arrowLeft, 'Back', () {
+          Get.back();
+        }, isAltPressed: true),
+        KeyAction(LogicalKeyboardKey.keyZ, 'BACK', () {
+          Get.back();
+        }, isControlPressed: true),
+      ],
+      child: Scaffold(
+          body: Center(child: bottomNavScreen.elementAt(currentIndex)),
+          bottomNavigationBar: BottomNavigationBar(
+              selectedItemColor: Colors.white,
+              unselectedItemColor: Colors.grey,
+              showUnselectedLabels: true,
+              selectedLabelStyle: TextStyle().copyWith(color: Colors.grey),
+              unselectedLabelStyle: TextStyle().copyWith(color: Colors.white),
+              items: bottomNavItems,
+              currentIndex: currentIndex,
+              onTap: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              })),
+    );
   }
 }
 

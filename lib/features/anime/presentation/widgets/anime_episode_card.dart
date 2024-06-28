@@ -1,11 +1,9 @@
-import 'dart:developer';
 
 import 'package:dooflix/features/anime/data/models/source_model.dart';
+import 'package:dooflix/common/url_video_player.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:jikan_api/jikan_api.dart';
-import 'package:river_player/river_player.dart';
 
 class AnimeEpisodeCard extends StatelessWidget {
   final Anime anime;
@@ -64,23 +62,8 @@ class AnimeEpisodeCard extends StatelessWidget {
 }
 
 void toAnimeVideoPlayer(String url) async {
-  Get.back();
-
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeRight,
-    DeviceOrientation.landscapeLeft,
-  ]).then((_) {
-    log('Orientation set \n Opening Player');
-  });
-
-  await Get.to(() => Material(
-        child: BetterPlayer.network(
-          url,
-          betterPlayerConfiguration:
-              BetterPlayerConfiguration(deviceOrientationsOnFullScreen: [
-            DeviceOrientation.landscapeRight,
-            DeviceOrientation.landscapeLeft,
-          ], autoDetectFullscreenDeviceOrientation: false),
-        ),
-      ));
+  final String playerUrl =
+      'https://bharadwajpro.github.io/m3u8-player/player/#$url';
+  print(playerUrl);
+  await Get.to(() => WebVideoPlayer(html: playerUrl));
 }

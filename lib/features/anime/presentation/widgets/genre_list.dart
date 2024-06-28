@@ -30,10 +30,13 @@ class GenreAnimeList extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               )
             ]),
-            IconButton(
-                onPressed: () {},
-                // onPressed: () => Get.to(() => GenreMovieList(genre: genre)),
-                icon: Icon(Icons.chevron_right))
+            Visibility(
+              visible: false,
+              child: IconButton(
+                  onPressed: () {},
+                  // onPressed: () => Get.to(() => GenreMovieList(genre: genre)),
+                  icon: Icon(Icons.chevron_right)),
+            )
           ],
         ),
         SizedBox(

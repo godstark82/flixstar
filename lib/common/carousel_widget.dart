@@ -17,10 +17,7 @@ SliverLayoutBuilder sliverCarouselMovieBar(BuildContext context,
     return SliverAppBar(
       primary: true,
       leadingWidth: 20,
-      leading: Icon(
-        Icons.flutter_dash,
-        size: 32,
-      ),
+    
       actions: [
         IconButton(
             onPressed: () {
@@ -28,10 +25,11 @@ SliverLayoutBuilder sliverCarouselMovieBar(BuildContext context,
             },
             icon: Icon(Icons.search))
       ],
-      title: Text(
-        'Crucifix',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-      ),
+      title: Text('FlixVibes',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              shadows: [Shadow(color: Colors.black, blurRadius: 16)])),
       forceMaterialTransparency: true,
       expandedHeight: expandedHeight,
       flexibleSpace: GFCarousel(
@@ -118,10 +116,7 @@ SliverLayoutBuilder sliverCarouselTvBar(BuildContext context,
     return SliverAppBar(
       primary: true,
       leadingWidth: 20,
-      leading: Icon(
-        Icons.flutter_dash,
-        size: 32,
-      ),
+     
       actions: [
         IconButton(
             onPressed: () {
@@ -135,10 +130,11 @@ SliverLayoutBuilder sliverCarouselTvBar(BuildContext context,
             },
             icon: Icon(Icons.search))
       ],
-      title: Text(
-        'Crucifix',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-      ),
+      title: Text('FlixVibes',
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              shadows: [Shadow(color: Colors.black, blurRadius: 16)])),
       forceMaterialTransparency: true,
       expandedHeight: expandedHeight,
       flexibleSpace: GFCarousel(

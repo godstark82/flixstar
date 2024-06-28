@@ -15,18 +15,19 @@ class SeachRepoImpl implements SearchRepo {
           .map((e) => Map<String, dynamic>.from(e))
           .toList();
       List<Movie> movies = result.map((e) => Movie.fromJson(e)).toList();
-      // print(result.runtimeType);
-      // for (var i = 0; i < movies.length; i++) {
-      // PlayerApi playerApi = PlayerApi();
-      // movies[i].playSource = await playerApi.videoUrl(movies[i].id!);
-      // }
-      return DataSuccess(movies);
+      final futures = movies.map((movie) async {
+        movie.source = await api.getMovieSource(movie.id!);
+        return movie;
+      }).toList();
+
+      // Wait for all futures to complete
+      final updatedMovies = await Future.wait(futures);
+      updatedMovies.removeWhere((movie) => movie.source == null);
+      return DataSuccess(updatedMovies);
     } catch (e) {
       rethrow;
     }
   }
-
- 
 
   @override
   Future<DataState<List<TvModel>>> searchTv(String query) async {
@@ -36,9 +37,17 @@ class SeachRepoImpl implements SearchRepo {
           .map((e) => Map<String, dynamic>.from(e))
           .toList();
       List<TvModel> movies = result.map((e) => TvModel.fromJson(e)).toList();
+      final futures = movies.map((movie) async {
+        movie.source = await api.getMovieSource(movie.id!);
+        return movie;
+      }).toList();
+
+      // Wait for all futures to complete
+      final updatedMovies = await Future.wait(futures);
+      updatedMovies.removeWhere((movie) => movie.source == null);
       // print(result.runtimeType);
 
-      return DataSuccess(movies);
+      return DataSuccess(updatedMovies);
     } catch (e) {
       rethrow;
     }

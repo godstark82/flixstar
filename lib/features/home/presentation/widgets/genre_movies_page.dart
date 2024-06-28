@@ -1,6 +1,8 @@
 import 'package:dooflix/features/movie/data/models/genre_movie_model.dart';
 import 'package:dooflix/features/movie/data/models/movie_model.dart';
+import 'package:dooflix/features/movie/data/repositories/movie_repo_impl.dart';
 import 'package:dooflix/features/movie/presentation/widgets/movie_card.dart';
+import 'package:dooflix/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:load_items/load_items.dart';
 
@@ -17,15 +19,16 @@ class GenreMoviesPage extends StatelessWidget {
         itemsLoader: (List<Movie> currentItems) async {
           // ignore: unused_local_variable
           int page = currentItems.length ~/ 20 + 1;
-          // MovieRepository repo = MovieRepository();
+          MovieRepositoryImpl movieRepositoryImpl = MovieRepositoryImpl(sl());
+          final newData = await movieRepositoryImpl.getGenres(id: genre.id, page: page);
           // final newData = await repo.getGenreMovies(genre.id, page: page);
-          return [];
+          return newData.data ?? [];
         },
         itemWidth: 120,
         bottomLoadingBuilder: () => Align(
             alignment: Alignment.bottomCenter,
             child: LinearProgressIndicator()),
-            gridChildAspectRatio: 10/16,
+        gridChildAspectRatio: 10 / 16,
         gridCrossAxisCount: 3,
         itemBuilder: (context, item, i) {
           return MovieCard(movie: item);

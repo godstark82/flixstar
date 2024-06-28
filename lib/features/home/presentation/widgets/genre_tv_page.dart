@@ -1,5 +1,6 @@
 import 'package:dooflix/features/tv/data/models/genre_tv_model.dart';
 import 'package:dooflix/features/tv/data/models/tv_model.dart';
+import 'package:dooflix/features/tv/data/repositories/tv_repo_impl.dart';
 
 import 'package:dooflix/features/tv/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +19,17 @@ class GenreTvPage extends StatelessWidget {
         itemsLoader: (List<TvModel> currentItems) async {
           // ignore: unused_local_variable
           int page = currentItems.length ~/ 20 + 1;
-          // TvRepository repo = TvRepository();
+          TvRepoImpl tvRepoImpl = TvRepoImpl();
+          final newData = await tvRepoImpl.getTvsOfGenre(genre.id, page: page);
+
           // final newData = await repo.getGenreSeries(genre.id, page: page);
-          return [];
+          return newData.data ?? [];
         },
-        itemWidth: 150,
+       itemWidth: 120,
         bottomLoadingBuilder: () => Align(
             alignment: Alignment.bottomCenter,
             child: LinearProgressIndicator()),
+        gridChildAspectRatio: 10 / 16,
         gridCrossAxisCount: 3,
         itemBuilder: (context, item, i) {
           return TvCard(tv: item);

@@ -2,6 +2,7 @@ import 'package:dooflix/features/history/presentation/pages/history_page.dart';
 import 'package:dooflix/features/library/presentation/pages/library_screen.dart';
 import 'package:dooflix/common/flat_button.dart';
 import 'package:dooflix/common/heading_2.dart';
+import 'package:dooflix/features/settings/presentation/pages/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -15,19 +16,19 @@ class MoreOptionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Icon(Icons.person, color: Colors.black),
-              )),
-          title: Text('Login & Cloud Features soon...',
-              maxLines: 2, style: Theme.of(context).textTheme.titleSmall),
+          title: Text(
+            'FlixVibes',
+            style:
+                TextStyle(fontWeight: FontWeight.bold, fontSize: 24, shadows: [
+              Shadow(color: Colors.black, blurRadius: 16),
+            ]),
+          ),
           actions: [
-            TextButton(
+            IconButton(
                 onPressed: () {
+                  Get.to(() => SettingScreen());
                 },
-                child: Text('Login'))
+                icon: Icon(Icons.settings))
           ]),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,6 +44,7 @@ class MoreOptionScreen extends StatelessWidget {
                   Get.to(() => LibraryScreen());
                 },
               ),
+              SizedBox(width: 20),
               FlatBtn(
                 iconData: Icons.history,
                 text: 'History',
@@ -53,18 +55,6 @@ class MoreOptionScreen extends StatelessWidget {
               SizedBox(),
             ]),
             SizedBox(height: 15),
-            Heading2(text: 'Settings'),
-            ListTile(
-              leading: Icon(
-                Icons.settings,
-                color: Colors.grey.withOpacity(0.5),
-              ),
-              title: Text('Settings'),
-              onTap: () {
-                
-               //?
-              },
-            ),
             Heading2(text: 'APP'),
             ListTile(
               leading: Icon(
@@ -78,9 +68,9 @@ class MoreOptionScreen extends StatelessWidget {
             ListTile(
               onTap: () async {
                 if (await canLaunchUrl(
-                    Uri.parse('https://github.com/godstark82/crucifix'))) {
+                    Uri.parse('https://github.com/godstark82/flixvibes'))) {
                   launchUrl(
-                    Uri.parse('https://github.com/godstark82/crucifix'),
+                    Uri.parse('https://github.com/godstark82/flixvibes'),
                     mode: LaunchMode.externalApplication,
                   );
                 }

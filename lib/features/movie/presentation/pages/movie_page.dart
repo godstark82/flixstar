@@ -1,10 +1,13 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dooflix/common/url_video_player.dart';
 import 'package:dooflix/features/history/presentation/bloc/history_bloc.dart';
 import 'package:dooflix/features/history/presentation/bloc/history_event.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -17,7 +20,6 @@ import 'package:dooflix/features/library/presentation/bloc/library_state.dart';
 import 'package:dooflix/features/movie/data/models/movie_model.dart';
 import 'package:dooflix/features/movie/presentation/bloc/movie_bloc.dart';
 
-
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
 
@@ -25,6 +27,7 @@ class MovieDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<MovieBloc>().add(LoadMovieDetailEvent(movie: movie));
     return CustomScrollView(
       slivers: [
         _buildAppBar(context, movie),
@@ -69,7 +72,17 @@ SliverAppBar _buildAppBar(BuildContext context, Movie movie) {
                               .read<HistoryBloc>()
                               .add(AddToHistoryEvent(movie: movie));
                         }
-                        Get.to(() => VideoPlayer(html: state.sourceHtml!));
+                        if (kIsWeb) {
+                          Get.to(() => WebVideoPlayer(html: state.sourceHtml!));
+                        } else {
+                          if (Platform.isWindows) {
+                            Get.to(
+                                () => WebVideoPlayer(html: state.sourceHtml!));
+                          }
+                          if (Platform.isAndroid) {
+                            Get.to(() => VideoPlayer(html: state.sourceHtml!));
+                          }
+                        }
                       } else {}
                     },
                   );

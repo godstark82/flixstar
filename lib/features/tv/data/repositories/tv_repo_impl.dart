@@ -27,26 +27,25 @@ class TvRepoImpl implements TvRepository {
 
   @override
   Future<DataState<List<GenreTvModel>>> getAllGenresData() async {
-  try {
-    final response = await api.tmdb.v3.genres.getTvlist(language: 'in-HI');
-    final List<dynamic> genres = response['genres'];
-    final List<GenreTvModel> genreModels = genres
-        .map((dynamic e) => GenreTvModel.fromJson(e as Map<String, dynamic>))
-        .toList();
+    try {
+      final response = await api.tmdb.v3.genres.getTvlist(language: 'in-HI');
+      final List<dynamic> genres = response['genres'];
+      final List<GenreTvModel> genreModels = genres
+          .map((dynamic e) => GenreTvModel.fromJson(e as Map<String, dynamic>))
+          .toList();
 
-    final futures = genreModels.map((genreModel) async {
-      final tvResponse = await getTvsOfGenre(genreModel.id);
-      genreModel.movies = tvResponse.data;
-    }).toList();
+      final futures = genreModels.map((genreModel) async {
+        final tvResponse = await getTvsOfGenre(genreModel.id);
+        genreModel.movies = tvResponse.data;
+      }).toList();
 
-    await Future.wait(futures);
+      await Future.wait(futures);
 
-    return DataSuccess(genreModels);
-  } catch (e) {
-    return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
+      return DataSuccess(genreModels);
+    } catch (e) {
+      return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
+    }
   }
-}
-
 
   @override
   Future<DataState<List<TvModel>>> getRelatedTvs(TvModel tv) async {
@@ -84,7 +83,8 @@ class TvRepoImpl implements TvRepository {
   @override
   Future<DataState<TvModel>> getTvDetails(TvModel tv) async {
     try {
-      return DataSuccess(tv.copyWith(source: await api.getTvSource(tv.id!)));
+      final newTv = tv.copyWith(source: await api.getTvSource(tv.id!));
+      return DataSuccess(newTv);
     } catch (e) {
       return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
     }

@@ -6,6 +6,7 @@ import 'package:dooflix/injection_container.dart';
 import 'package:dooflix/core/utils/theme_data.dart';
 import 'package:dooflix/features/home/presentation/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -16,6 +17,7 @@ void main(List<String> args) async {
   await Hive.initFlutter();
   await Hive.openBox('library');
   await Hive.openBox('settings');
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const App());
 }
 
@@ -31,7 +33,7 @@ class App extends StatelessWidget {
           BlocProvider(create: (context) => SearchBloc()), // History Bloc
         ],
         child: GetMaterialApp(
-          title: 'Dooflix',
+          title: 'FlixVibes',
           debugShowCheckedModeBanner: false,
           theme: theme,
           home: Home(),
