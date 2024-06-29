@@ -2,11 +2,11 @@
 
 import 'dart:developer';
 
-import 'package:dooflix/features/history/data/repositories/history_repo_impl.dart';
-import 'package:dooflix/features/history/presentation/bloc/history_event.dart';
-import 'package:dooflix/features/history/presentation/bloc/history_state.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/features/history/data/repositories/history_repo_impl.dart';
+import 'package:flixstar/features/history/presentation/bloc/history_event.dart';
+import 'package:flixstar/features/history/presentation/bloc/history_state.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 

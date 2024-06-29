@@ -3,13 +3,14 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dooflix/api/gogo_api.dart';
-import 'package:dooflix/core/routes/routes.dart';
-import 'package:dooflix/features/anime/data/models/source_model.dart';
-import 'package:dooflix/features/anime/presentation/widgets/anime_episode_card.dart';
-import 'package:dooflix/injection_container.dart';
-import 'package:dooflix/features/movie/presentation/pages/movie_page.dart';
-import 'package:dooflix/common/heading_2.dart';
+import 'package:flixstar/api/gogo_api.dart';
+import 'package:flixstar/core/const/const.dart';
+import 'package:flixstar/core/routes/routes.dart';
+import 'package:flixstar/features/anime/data/models/source_model.dart';
+import 'package:flixstar/features/anime/presentation/widgets/anime_episode_card.dart';
+import 'package:flixstar/injection_container.dart';
+import 'package:flixstar/features/movie/presentation/pages/movie_page.dart';
+import 'package:flixstar/common/heading_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class AnimeDetailsPage extends StatelessWidget {
         _buildAppBar(context, anime),
         _buildOverview(anime),
         _buildotherOptions(context, anime),
-        _buildEpisodes(context, anime),
+        if (streamMode) _buildEpisodes(context, anime),
       ],
     ));
   }
@@ -145,18 +146,17 @@ class AnimeDetailsPage extends StatelessWidget {
           SizedBox(
               height: 300,
               child: LoadItems<AnimeSource>(
-
                   type: LoadItemsType.list,
                   itemsLoader: (List<AnimeSource> currentItems) async {
                     List<AnimeSource> sources = [];
                     GoAnime go = GoAnime(sl());
 
                     if (currentItems.isEmpty) {
-                      sources = await go.getEpisodesLinksOfAnime(anime, count: 10);
+                      sources =
+                          await go.getEpisodesLinksOfAnime(anime, count: 10);
                     }
                     return sources;
                   },
-                  
                   itemBuilder: (context, source, index) {
                     return AnimeEpisodeCard(
                         anime: anime, source: source, index: index);

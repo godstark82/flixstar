@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:dooflix/api/api.dart';
-import 'package:dooflix/core/utils/constants.dart';
+import 'package:flixstar/api/api.dart';
+import 'package:flixstar/core/utils/constants.dart';
 
 class TvModel {
   bool? adult;

@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/search/data/repositories/seach_repo_impl.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
-import 'package:dooflix/features/anime/data/repositories/anime_repo_impl.dart';
-import 'package:dooflix/injection_container.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/search/data/repositories/seach_repo_impl.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/features/anime/data/repositories/anime_repo_impl.dart';
+import 'package:flixstar/injection_container.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jikan_api/jikan_api.dart';
 

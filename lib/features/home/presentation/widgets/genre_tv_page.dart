@@ -1,8 +1,8 @@
-import 'package:dooflix/features/tv/data/models/genre_tv_model.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
-import 'package:dooflix/features/tv/data/repositories/tv_repo_impl.dart';
+import 'package:flixstar/features/tv/data/models/genre_tv_model.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/features/tv/data/repositories/tv_repo_impl.dart';
 
-import 'package:dooflix/features/tv/presentation/widgets/tv_card.dart';
+import 'package:flixstar/features/tv/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 import 'package:load_items/load_items.dart';
 

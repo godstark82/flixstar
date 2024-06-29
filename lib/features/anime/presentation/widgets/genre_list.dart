@@ -1,6 +1,6 @@
 // auto fetch movie list from genre
-import 'package:dooflix/features/anime/data/models/anime_genre_model.dart';
-import 'package:dooflix/features/anime/presentation/widgets/anime_card.dart';
+import 'package:flixstar/features/anime/data/models/anime_genre_model.dart';
+import 'package:flixstar/features/anime/presentation/widgets/anime_card.dart';
 import 'package:flutter/material.dart';
 
 class GenreAnimeList extends StatelessWidget {

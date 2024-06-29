@@ -1,4 +1,4 @@
-import 'package:dooflix/features/anime/presentation/widgets/anime_card.dart';
+import 'package:flixstar/features/anime/presentation/widgets/anime_card.dart';
 import 'package:flutter/material.dart';
 import 'package:jikan_api/jikan_api.dart';
 

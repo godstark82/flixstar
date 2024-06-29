@@ -1,15 +1,15 @@
-import 'package:dooflix/api/gogo_api.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
-import 'package:dooflix/features/anime/data/models/source_model.dart';
-import 'package:dooflix/features/anime/presentation/pages/all_episodes.dart';
-import 'package:dooflix/features/anime/presentation/pages/anime_details.dart';
-import 'package:dooflix/features/movie/presentation/bloc/movie_bloc.dart';
-import 'package:dooflix/features/tv/presentation/bloc/tv_bloc.dart';
-import 'package:dooflix/features/tv/presentation/pages/tv_page.dart';
-import 'package:dooflix/injection_container.dart';
+import 'package:flixstar/api/gogo_api.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/features/anime/data/models/source_model.dart';
+import 'package:flixstar/features/anime/presentation/pages/all_episodes.dart';
+import 'package:flixstar/features/anime/presentation/pages/anime_details.dart';
+import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
+import 'package:flixstar/features/tv/presentation/bloc/tv_bloc.dart';
+import 'package:flixstar/features/tv/presentation/pages/tv_page.dart';
+import 'package:flixstar/injection_container.dart';
 
-import 'package:dooflix/features/movie/presentation/pages/movie_page.dart';
+import 'package:flixstar/features/movie/presentation/pages/movie_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';

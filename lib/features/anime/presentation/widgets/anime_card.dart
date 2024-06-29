@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dooflix/core/routes/routes.dart';
+import 'package:flixstar/core/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:jikan_api/jikan_api.dart';
 

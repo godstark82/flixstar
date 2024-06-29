@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dooflix/core/routes/routes.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/search/presentation/bloc/search_bloc.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/core/routes/routes.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 
-import 'package:dooflix/features/search/presentation/pages/search_screen.dart';
+import 'package:flixstar/features/search/presentation/pages/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -25,7 +25,7 @@ SliverLayoutBuilder sliverCarouselMovieBar(BuildContext context,
             },
             icon: Icon(Icons.search))
       ],
-      title: Text('FlixVibes',
+      title: Text('FlixStar',
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
@@ -130,7 +130,7 @@ SliverLayoutBuilder sliverCarouselTvBar(BuildContext context,
             },
             icon: Icon(Icons.search))
       ],
-      title: Text('FlixVibes',
+      title: Text('FlixStar',
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,

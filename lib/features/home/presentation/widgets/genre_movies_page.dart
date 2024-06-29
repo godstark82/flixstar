@@ -1,8 +1,8 @@
-import 'package:dooflix/features/movie/data/models/genre_movie_model.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/movie/data/repositories/movie_repo_impl.dart';
-import 'package:dooflix/features/movie/presentation/widgets/movie_card.dart';
-import 'package:dooflix/injection_container.dart';
+import 'package:flixstar/features/movie/data/models/genre_movie_model.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/movie/data/repositories/movie_repo_impl.dart';
+import 'package:flixstar/features/movie/presentation/widgets/movie_card.dart';
+import 'package:flixstar/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:load_items/load_items.dart';
 

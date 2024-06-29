@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:easy_web_view/easy_web_view.dart';
+import 'package:flixstar/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:keymap/keymap.dart';
+import 'package:startapp_sdk/startapp.dart';
 
 class WebVideoPlayer extends StatefulWidget {
   final String html;
@@ -15,9 +14,19 @@ class WebVideoPlayer extends StatefulWidget {
 }
 
 class _WebVideoPlayerState extends State<WebVideoPlayer> {
+  StartAppInterstitialAd? interstitialAd;
   @override
   void initState() {
     super.initState();
+  }
+
+  void loadInterstitialAd() async {
+    final startAppSdk = sl<StartAppSdk>();
+    await startAppSdk.loadInterstitialAd().then((ad) {
+      interstitialAd = ad;
+    }).onError((err, trace) {
+      print(err);
+    });
   }
 
   @override
@@ -26,6 +35,14 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+
+    interstitialAd?.show().then((shown) {
+      if (shown) {
+        interstitialAd = null;
+        loadInterstitialAd();
+      }
+      return null;
+    });
   }
 
   @override

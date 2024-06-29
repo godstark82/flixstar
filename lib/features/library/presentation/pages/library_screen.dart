@@ -1,9 +1,9 @@
 
-import 'package:dooflix/common/heading_widget.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_bloc.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_state.dart';
-import 'package:dooflix/features/movie/presentation/widgets/movie_card.dart';
-import 'package:dooflix/features/tv/presentation/widgets/tv_card.dart';
+import 'package:flixstar/common/heading_widget.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
+import 'package:flixstar/features/movie/presentation/widgets/movie_card.dart';
+import 'package:flixstar/features/tv/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

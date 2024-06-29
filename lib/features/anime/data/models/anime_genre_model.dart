@@ -1,4 +1,4 @@
-import 'package:dooflix/features/anime/domain/entities/anime_genre_entity.dart';
+import 'package:flixstar/features/anime/domain/entities/anime_genre_entity.dart';
 import 'package:jikan_api/jikan_api.dart';
 
 // ignore: must_be_immutable

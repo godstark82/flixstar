@@ -3,7 +3,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:dooflix/core/utils/constants.dart';
+import 'package:flixstar/core/utils/constants.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 import 'package:html/parser.dart';
 
@@ -32,7 +32,6 @@ class API {
     print('getting Movie Source from url $movieUrl');
 
     final response = await dio.get(movieUrl);
-    print(response.data ?? 'No Data Found');
     final html = parse(response.data);
     final noAdScript = html.outerHtml.replaceAll('''<script>
 (function () {

@@ -1,5 +1,5 @@
-import 'package:dooflix/api/api.dart';
-import 'package:dooflix/core/utils/constants.dart';
+import 'package:flixstar/api/api.dart';
+import 'package:flixstar/core/utils/constants.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class Movie {

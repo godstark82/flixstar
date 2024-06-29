@@ -1,7 +1,7 @@
-import 'package:dooflix/features/anime/presentation/widgets/anime_card.dart';
-import 'package:dooflix/features/movie/presentation/widgets/movie_card.dart';
-import 'package:dooflix/features/search/presentation/bloc/search_bloc.dart';
-import 'package:dooflix/features/tv/presentation/widgets/tv_card.dart';
+import 'package:flixstar/features/anime/presentation/widgets/anime_card.dart';
+import 'package:flixstar/features/movie/presentation/widgets/movie_card.dart';
+import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
+import 'package:flixstar/features/tv/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';

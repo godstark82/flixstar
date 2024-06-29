@@ -1,8 +1,10 @@
-part of 'movie_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:startapp_sdk/startapp.dart';
 
 abstract class MovieState extends Equatable {
   final String? sourceHtml;
-  const MovieState({this.sourceHtml});
+  final StartAppBannerAd? bannerAd;
+  const MovieState({this.sourceHtml, this.bannerAd});
 
   @override
   List<Object> get props => [];
@@ -13,7 +15,8 @@ class MovieLoadingState extends MovieState {
 }
 
 class MovieLoadedState extends MovieState {
-  const MovieLoadedState({required super.sourceHtml});
+  const MovieLoadedState(
+      {required super.sourceHtml, super.bannerAd});
 }
 
 class MovieErrorState extends MovieState {

@@ -1,7 +1,7 @@
-import 'package:dooflix/core/resources/data_state.dart';
-import 'package:dooflix/core/usecases/usecase.dart';
-import 'package:dooflix/features/anime/data/repositories/anime_repo_impl.dart';
-import 'package:dooflix/injection_container.dart';
+import 'package:flixstar/core/resources/data_state.dart';
+import 'package:flixstar/core/usecases/usecase.dart';
+import 'package:flixstar/features/anime/data/repositories/anime_repo_impl.dart';
+import 'package:flixstar/injection_container.dart';
 import 'package:jikan_api/jikan_api.dart';
 
 class TopAnimeUseCase implements UseCase<DataState<BuiltList<Anime>>, int> {

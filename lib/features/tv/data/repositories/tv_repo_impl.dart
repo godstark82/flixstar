@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:dooflix/api/api.dart';
-import 'package:dooflix/core/resources/data_state.dart';
-import 'package:dooflix/features/tv/data/models/genre_tv_model.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
-import 'package:dooflix/features/tv/domain/repositories/tv_repository.dart';
+import 'package:flixstar/api/api.dart';
+import 'package:flixstar/core/resources/data_state.dart';
+import 'package:flixstar/features/tv/data/models/genre_tv_model.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/features/tv/domain/repositories/tv_repository.dart';
 
 class TvRepoImpl implements TvRepository {
   final API api = API();

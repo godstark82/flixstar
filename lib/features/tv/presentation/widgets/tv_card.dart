@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dooflix/core/routes/routes.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_bloc.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_event.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_state.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
-import 'package:dooflix/core/utils/my_snack.dart';
+import 'package:flixstar/core/routes/routes.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/core/utils/my_snack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

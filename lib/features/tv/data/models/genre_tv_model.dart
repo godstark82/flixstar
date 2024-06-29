@@ -1,4 +1,4 @@
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 
 class GenreTvModel {
   final int id;

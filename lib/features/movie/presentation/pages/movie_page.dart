@@ -4,21 +4,24 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dooflix/common/url_video_player.dart';
-import 'package:dooflix/features/history/presentation/bloc/history_bloc.dart';
-import 'package:dooflix/features/history/presentation/bloc/history_event.dart';
+import 'package:flixstar/common/url_video_player.dart';
+import 'package:flixstar/core/const/const.dart';
+import 'package:flixstar/features/history/presentation/bloc/history_bloc.dart';
+import 'package:flixstar/features/history/presentation/bloc/history_event.dart';
+import 'package:flixstar/features/movie/presentation/bloc/movie_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import 'package:dooflix/common/play_button.dart';
-import 'package:dooflix/common/video_player.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_bloc.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_event.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_state.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/movie/presentation/bloc/movie_bloc.dart';
+import 'package:flixstar/common/play_button.dart';
+import 'package:flixstar/common/video_player.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
+import 'package:startapp_sdk/startapp.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
@@ -33,6 +36,7 @@ class MovieDetailsPage extends StatelessWidget {
         _buildAppBar(context, movie),
         _buildOverview(movie),
         _buildotherOptions(context, movie),
+        if (showAds) _buildBannerAd(),
       ],
     );
   }
@@ -41,58 +45,70 @@ class MovieDetailsPage extends StatelessWidget {
 SliverAppBar _buildAppBar(BuildContext context, Movie movie) {
   return SliverAppBar(
     primary: true,
-    bottom: PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            child: BlocBuilder<MovieBloc, MovieState>(
-              builder: (context, state) {
-                if (state is MovieLoadingState) {
-                  return Center(
-                    child: SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator()),
-                  );
-                } else if (state is MovieLoadedState) {
-                  return PlayButton(
-                    icon: Icon(state.sourceHtml != null
-                        ? Icons.play_arrow
-                        : Icons.info),
-                    label: Text(
-                        state.sourceHtml != null ? 'Play' : 'Coming Soon..'),
-                    onPressed: () async {
-                      if (state.sourceHtml != null) {
-                        if (!context
-                            .read<HistoryBloc>()
-                            .state
-                            .movies
-                            .contains(movie)) {
-                          context
+    bottom: streamMode
+        ? PreferredSize(
+            preferredSize: Size.fromHeight(50),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: BlocBuilder<MovieBloc, MovieState>(
+                builder: (context, state) {
+                  if (state is MovieLoadingState) {
+                    return Center(
+                      child: SizedBox(
+                          height: 20,
+                          width: 20,
+                          child: CircularProgressIndicator()),
+                    );
+                  } else if (state is MovieLoadedState) {
+                    return PlayButton(
+                      icon: Icon(state.sourceHtml != null
+                          ? Icons.play_arrow
+                          : Icons.info),
+                      label: Text(
+                          state.sourceHtml != null ? 'Play' : 'Coming Soon..'),
+                      onPressed: () async {
+                        if (state.sourceHtml != null) {
+                          if (!context
                               .read<HistoryBloc>()
-                              .add(AddToHistoryEvent(movie: movie));
-                        }
-                        if (kIsWeb) {
-                          Get.to(() => WebVideoPlayer(html: state.sourceHtml!));
-                        } else {
-                          if (Platform.isWindows) {
+                              .state
+                              .movies
+                              .contains(movie)) {
+                            context
+                                .read<HistoryBloc>()
+                                .add(AddToHistoryEvent(movie: movie));
+                          }
+                          if (kIsWeb) {
                             Get.to(
                                 () => WebVideoPlayer(html: state.sourceHtml!));
+                          } else {
+                            if (Platform.isWindows) {
+                              Get.to(() =>
+                                  WebVideoPlayer(html: state.sourceHtml!));
+                            }
+                            if (Platform.isAndroid) {
+                              Get.to(
+                                  () => VideoPlayer(html: state.sourceHtml!));
+                            }
                           }
-                          if (Platform.isAndroid) {
-                            Get.to(() => VideoPlayer(html: state.sourceHtml!));
-                          }
-                        }
-                      } else {}
-                    },
-                  );
-                } else {
-                  return Center(
-                    child: Text('Error'),
-                  );
-                }
-              },
-            ))),
+                        } else {}
+                      },
+                    );
+                  } else {
+                    return Center(
+                      child: TextButton(
+                          onPressed: () {
+                            context
+                                .read<MovieBloc>()
+                                .add(LoadMovieDetailEvent(movie: movie));
+                          },
+                          child: Text('Retry')),
+                    );
+                  }
+                },
+              ),
+            ),
+          )
+        : PreferredSize(preferredSize: Size.zero, child: SizedBox()),
     forceMaterialTransparency: true,
     // backgroundColor: Colors.black,
     expandedHeight: context.height * 0.5,
@@ -149,6 +165,21 @@ SliverAppBar _buildAppBar(BuildContext context, Movie movie) {
               )),
         ),
       ),
+    ),
+  );
+}
+
+SliverToBoxAdapter _buildBannerAd() {
+  return SliverToBoxAdapter(
+    child: BlocBuilder<MovieBloc, MovieState>(
+      builder: (context, state) {
+        if (state is MovieLoadedState) {
+          return state.bannerAd != null
+              ? StartAppBanner(state.bannerAd!)
+              : SizedBox();
+        }
+        return SizedBox();
+      },
     ),
   );
 }

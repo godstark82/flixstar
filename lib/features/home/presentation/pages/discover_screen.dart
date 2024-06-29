@@ -1,10 +1,10 @@
-import 'package:dooflix/features/home/presentation/bloc/home_bloc.dart';
-import 'package:dooflix/features/home/presentation/widgets/genre_tv_page.dart';
-import 'package:dooflix/features/search/presentation/bloc/search_bloc.dart';
-import 'package:dooflix/features/search/presentation/pages/search_result_page.dart';
-import 'package:dooflix/features/search/presentation/pages/search_screen.dart';
-import 'package:dooflix/common/heading_widget.dart';
-import 'package:dooflix/core/utils/my_snack.dart';
+import 'package:flixstar/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flixstar/features/home/presentation/widgets/genre_tv_page.dart';
+import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
+import 'package:flixstar/features/search/presentation/pages/search_result_page.dart';
+import 'package:flixstar/features/search/presentation/pages/search_screen.dart';
+import 'package:flixstar/common/heading_widget.dart';
+import 'package:flixstar/core/utils/my_snack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';

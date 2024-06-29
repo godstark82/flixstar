@@ -14,6 +14,9 @@ abstract class HomeState extends Equatable {
   final BuiltList<Anime>? topAnime;
   final List<AnimeGenreModel>? animeGenreData;
 
+  //! ADS
+  final StartAppBannerAd? bannerAd;
+
   const HomeState(
       {this.movieGenres,
       this.animeGenreData,
@@ -21,6 +24,7 @@ abstract class HomeState extends Equatable {
       this.popularMovie,
       this.trendingMovie,
       this.tvGenres,
+      this.bannerAd,
       this.topRatedTvs});
 
   @override
@@ -33,6 +37,7 @@ class HomeLoadingState extends HomeState {
 
 class HomeLoadedState extends HomeState {
   const HomeLoadedState({
+    required super.bannerAd,
     required super.popularMovie,
     required super.trendingMovie,
     required super.movieGenres,
@@ -48,6 +53,7 @@ class HomeAnimeLoadingState extends HomeState {
       {super.movieGenres,
       super.popularMovie,
       super.topRatedTvs,
+      super.bannerAd,
       super.trendingMovie,
       super.tvGenres})
       : super();

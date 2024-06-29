@@ -1,22 +1,47 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/movie/domain/usecases/movie_detail_usercase.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/movie/domain/usecases/movie_detail_usercase.dart';
+import 'package:flixstar/features/movie/presentation/bloc/movie_state.dart';
+import 'package:flixstar/injection_container.dart';
 import 'package:equatable/equatable.dart';
+import 'package:startapp_sdk/startapp.dart';
 
 part 'movie_event.dart';
-part 'movie_state.dart';
 
 class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final GetMovieDetailUseCase _getMovieDetailUseCase;
 
   MovieBloc(this._getMovieDetailUseCase) : super(MovieLoadingState()) {
     on<LoadMovieDetailEvent>((event, emit) async {
+      emit(MovieLoadingState());
       try {
+        // variables
+        StartAppBannerAd? bannerAd;
+        // initialisation
+        final startAppSdk = sl<StartAppSdk>();
         final html = (await _getMovieDetailUseCase.call(event.movie)).data;
+
+        // source null handling
         log(html != null ? 'html found' : 'NOT AVAILABLE');
-        emit(MovieLoadedState(sourceHtml: html?.source));
+        if (html == null) {
+          emit(MovieErrorState('Movie not found'));
+          return;
+        }
+
+        // Ads Initialzation
+        try {
+          bannerAd = await startAppSdk.loadBannerAd(StartAppBannerType.BANNER,
+              onAdImpression: () {
+            log('Ad Impression Increased');
+          });
+        } catch (e) {
+          log('message: ${e.toString()}');
+        }
+
+        // state emit
+        emit(MovieLoadedState(sourceHtml: html.source, bannerAd: bannerAd));
       } catch (e) {
         log('Can\'t load html ${e.toString()}');
         emit(MovieErrorState(e.toString()));

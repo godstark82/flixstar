@@ -1,8 +1,8 @@
-import 'package:dooflix/api/api.dart';
-import 'package:dooflix/core/resources/data_state.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/search/domain/repositories/search_repo.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/api/api.dart';
+import 'package:flixstar/core/resources/data_state.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/search/domain/repositories/search_repo.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 
 class SeachRepoImpl implements SearchRepo {
   API api = API();

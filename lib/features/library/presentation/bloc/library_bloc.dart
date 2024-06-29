@@ -1,11 +1,11 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 
-import 'package:dooflix/features/library/presentation/bloc/library_event.dart';
-import 'package:dooflix/features/library/presentation/bloc/library_state.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
-import 'package:dooflix/core/utils/constants.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/core/utils/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "163571023666",
+    "project_id": "flixvibes-547e5",
+    "storage_bucket": "flixvibes-547e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:163571023666:android:52e497d263fd6583d6212b",
+        "android_client_info": {
+          "package_name": "com.venom82.flixvibes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeWHUZOQJiVkrSzdBeEr01Vsf6tZ59a9k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

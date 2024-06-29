@@ -1,6 +1,6 @@
-import 'package:dooflix/features/history/domain/repositories/history_repo.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
-import 'package:dooflix/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/features/history/domain/repositories/history_repo.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HistoryRepoImpl implements HistoryRepository {

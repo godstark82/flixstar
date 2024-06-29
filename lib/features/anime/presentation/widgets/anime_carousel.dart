@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dooflix/features/search/presentation/pages/search_screen.dart';
+import 'package:flixstar/features/search/presentation/pages/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/components/carousel/gf_carousel.dart';
@@ -19,7 +19,7 @@ SliverLayoutBuilder customAnimeCarousel(BuildContext context,
             icon: Icon(Icons.search))
       ],
       title: Text(
-        'FlixVibes',
+        'FlixStar',
         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, shadows: [
           Shadow(
             color: Colors.black,

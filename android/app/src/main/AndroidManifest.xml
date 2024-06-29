@@ -24,7 +24,7 @@
     android:required="false" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
-        android:label="FlixVibes"
+        android:label="FlixStar"
         android:enableOnBackInvokedCallback="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
@@ -54,6 +54,20 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <!-- TODO replace YOUR_APP_ID with actual value -->
+        <meta-data
+            android:name="com.startapp.sdk.APPLICATION_ID"
+            android:value="205249376" />
+                    <!-- TODO Splash Ad controlled by the android:value below -->
+        <provider
+            android:authorities="com.startapp.flutter.sdk.${applicationId}"
+            android:name="com.startapp.flutter.sdk.StartAppFlutterHelper"
+            android:exported="false">
+            <meta-data
+                android:name="com.startapp.sdk.SPLASH_ADS_ENABLED"
+                android:value="false" />
+        </provider>
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility?hl=en and

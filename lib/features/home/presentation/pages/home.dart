@@ -1,9 +1,9 @@
-import 'package:dooflix/features/home/presentation/bloc/home_bloc.dart';
-import 'package:dooflix/features/home/presentation/pages/anime_homescreen.dart';
-import 'package:dooflix/features/home/presentation/pages/discover_screen.dart';
-import 'package:dooflix/features/home/presentation/pages/home_screen.dart';
-import 'package:dooflix/features/home/presentation/pages/more_screen.dart';
-import 'package:dooflix/features/home/presentation/pages/tv_screen.dart';
+import 'package:flixstar/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flixstar/features/home/presentation/pages/anime_homescreen.dart';
+import 'package:flixstar/features/home/presentation/pages/discover_screen.dart';
+import 'package:flixstar/features/home/presentation/pages/home_screen.dart';
+import 'package:flixstar/features/home/presentation/pages/more_screen.dart';
+import 'package:flixstar/features/home/presentation/pages/tv_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

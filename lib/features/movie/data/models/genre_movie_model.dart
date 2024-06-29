@@ -1,4 +1,4 @@
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
 
 class GenreMovieModel {
   final int id;

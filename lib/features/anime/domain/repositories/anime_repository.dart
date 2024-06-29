@@ -1,5 +1,5 @@
-import 'package:dooflix/core/resources/data_state.dart';
-import 'package:dooflix/features/anime/data/models/anime_genre_model.dart';
+import 'package:flixstar/core/resources/data_state.dart';
+import 'package:flixstar/features/anime/data/models/anime_genre_model.dart';
 import 'package:jikan_api/jikan_api.dart';
 
 abstract class AnimeRepository {

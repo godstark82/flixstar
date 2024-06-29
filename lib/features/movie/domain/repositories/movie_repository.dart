@@ -1,6 +1,6 @@
-import 'package:dooflix/core/resources/data_state.dart';
-import 'package:dooflix/features/movie/data/models/genre_movie_model.dart';
-import 'package:dooflix/features/movie/data/models/movie_model.dart';
+import 'package:flixstar/core/resources/data_state.dart';
+import 'package:flixstar/features/movie/data/models/genre_movie_model.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
 
 abstract class MovieRepository {
   Future<DataState<List<Movie>>> getTrendingMovies();

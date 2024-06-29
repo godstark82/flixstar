@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
-import 'package:dooflix/core/resources/data_state.dart';
-import 'package:dooflix/features/anime/data/models/anime_genre_model.dart';
-import 'package:dooflix/features/anime/domain/repositories/anime_repository.dart';
+import 'package:flixstar/core/resources/data_state.dart';
+import 'package:flixstar/features/anime/data/models/anime_genre_model.dart';
+import 'package:flixstar/features/anime/domain/repositories/anime_repository.dart';
 import 'package:jikan_api/jikan_api.dart';
 
 class AnimeRepoImpl implements AnimeRepository {

@@ -1,5 +1,6 @@
 analyzer:
   errors:
+    no_leading_underscores_for_local_identifiers: ignore
     prefer_const_literals_to_create_immutables: ignore
     unused_element: ignore
     use_build_context_synchronously: ignore

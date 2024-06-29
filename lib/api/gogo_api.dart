@@ -3,8 +3,8 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
-import 'package:dooflix/features/anime/data/models/anime_details_model.dart';
-import 'package:dooflix/features/anime/data/models/source_model.dart';
+import 'package:flixstar/features/anime/data/models/anime_details_model.dart';
+import 'package:flixstar/features/anime/data/models/source_model.dart';
 import 'package:jikan_api/jikan_api.dart';
 
 const goAnimeBaseUrl =

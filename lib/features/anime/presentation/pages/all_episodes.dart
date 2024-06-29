@@ -1,5 +1,5 @@
-import 'package:dooflix/features/anime/data/models/source_model.dart';
-import 'package:dooflix/features/anime/presentation/widgets/anime_episode_card.dart';
+import 'package:flixstar/features/anime/data/models/source_model.dart';
+import 'package:flixstar/features/anime/presentation/widgets/anime_episode_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jikan_api/jikan_api.dart';
