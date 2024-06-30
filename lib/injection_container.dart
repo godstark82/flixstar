@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flixstar/api/api.dart';
 import 'package:flixstar/api/gogo_api.dart';
-
 import 'package:flixstar/features/anime/data/repositories/anime_repo_impl.dart';
 import 'package:flixstar/features/anime/domain/usecases/all_genre_data_usecase.dart';
 import 'package:flixstar/features/anime/domain/usecases/anime_detail_usecase.dart';
@@ -20,14 +20,32 @@ import 'package:flixstar/features/tv/domain/usecases/genres_data_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/top_rated_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/tv_detail_usecase.dart';
 import 'package:flixstar/features/tv/presentation/bloc/tv_bloc.dart';
-
+import 'package:flixstar/firebase_options.dart';
+import 'package:flixstar/main.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jikan_api/jikan_api.dart';
 import 'package:startapp_sdk/startapp.dart';
 
 final sl = GetIt.instance;
 
-Future<void> init() async {
+Future<void> initialiseDependencies() async {
+  await dependencies();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await fetchFirebaseData();
+  await checkForNewUpdate();
+  await Hive.initFlutter();
+  await Future.wait([
+    if (!kIsWeb) sl<StartAppSdk>().setTestAdsEnabled(false),
+    Hive.openBox('library'),
+    Hive.openBox('settings'),
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+  ]);
+}
+
+Future<void> dependencies() async {
   sl.registerSingleton<Dio>(Dio());
 
   //ads SDK

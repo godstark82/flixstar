@@ -21,8 +21,6 @@ import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
-import 'package:startapp_sdk/startapp.dart';
-
 class MovieDetailsPage extends StatelessWidget {
   final Movie movie;
 
