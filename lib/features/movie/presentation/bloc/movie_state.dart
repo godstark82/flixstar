@@ -3,9 +3,7 @@ import 'package:startapp_sdk/startapp.dart';
 
 abstract class MovieState extends Equatable {
   final String? sourceHtml;
-  final StartAppBannerAd? bannerAd;
-  const MovieState({this.sourceHtml, this.bannerAd});
-
+  const MovieState({this.sourceHtml});
   @override
   List<Object> get props => [];
 }
@@ -15,8 +13,7 @@ class MovieLoadingState extends MovieState {
 }
 
 class MovieLoadedState extends MovieState {
-  const MovieLoadedState(
-      {required super.sourceHtml, super.bannerAd});
+  const MovieLoadedState({required super.sourceHtml});
 }
 
 class MovieErrorState extends MovieState {

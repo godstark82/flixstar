@@ -24,12 +24,9 @@ import 'package:startapp_sdk/startapp.dart';
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await fetchFirebaseData();
   await checkForNewUpdate();
-
   await Hive.initFlutter();
   await Future.wait([
     sl<StartAppSdk>().setTestAdsEnabled(false),

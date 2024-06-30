@@ -21,11 +21,23 @@ jobs:
           channel: "stable"
           architecture: x64
       # to Run flutter clean and flutter pub get
-      - run: flutter clean
-      - run: flutter pub get
+      - name: Clean Cache
+        run: flutter clean
 
-      # to build apk
-      - run: flutter build apk --release --split-per-abi
+      - name: Get Packages
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --release --split-per-abi
+
+      - name: Build Web
+        run: flutter build web
+
+      - name: Deploy To GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          token: ${{ secrets.TOKEN }}
+          publish_dir: ./build/web
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:

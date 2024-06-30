@@ -17,8 +17,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     on<LoadMovieDetailEvent>((event, emit) async {
       emit(MovieLoadingState());
       try {
-        // variables
-        StartAppBannerAd? bannerAd;
+
         // initialisation
         final startAppSdk = sl<StartAppSdk>();
         final html = (await _getMovieDetailUseCase.call(event.movie)).data;
@@ -30,18 +29,8 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
           return;
         }
 
-        // Ads Initialzation
-        try {
-          bannerAd = await startAppSdk.loadBannerAd(StartAppBannerType.BANNER,
-              onAdImpression: () {
-            log('Ad Impression Increased');
-          });
-        } catch (e) {
-          log('message: ${e.toString()}');
-        }
-
         // state emit
-        emit(MovieLoadedState(sourceHtml: html.source, bannerAd: bannerAd));
+        emit(MovieLoadedState(sourceHtml: html.source));
       } catch (e) {
         log('Can\'t load html ${e.toString()}');
         emit(MovieErrorState(e.toString()));

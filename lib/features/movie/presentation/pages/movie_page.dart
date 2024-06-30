@@ -173,11 +173,6 @@ SliverToBoxAdapter _buildBannerAd() {
   return SliverToBoxAdapter(
     child: BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
-        if (state is MovieLoadedState) {
-          return state.bannerAd != null
-              ? StartAppBanner(state.bannerAd!)
-              : SizedBox();
-        }
         return SizedBox();
       },
     ),
