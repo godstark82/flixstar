@@ -9,7 +9,7 @@ name: "Build & Release"
 jobs:
   build:
     name: Build & Release
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
@@ -32,6 +32,10 @@ jobs:
 
       - name: Build Web
         run: flutter build web
+
+      - name: Adjust Base HREF
+        run: sed -i 's|<base href="/">|<base href="/flixstar/">|' build/web/index.html
+ 
 
       - name: Deploy To GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
