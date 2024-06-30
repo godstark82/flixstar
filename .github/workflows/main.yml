@@ -36,7 +36,7 @@ jobs:
       - name: Deploy To GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          token: ${{ secrets.TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
       - name: Push to Releases
         uses: ncipollo/release-action@v1
