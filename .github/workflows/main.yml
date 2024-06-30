@@ -20,23 +20,22 @@ jobs:
         with:
           channel: "stable"
           architecture: x64
-
+      
       # Step to setup Node.js
       - uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: '16'
 
-      - name: Install Dependencies
-        run: npm install js-yaml
-
-      # Step to extract version from pubspec.yaml
+      # Extract version from pubspec.yaml using actions/github-script
       - name: Extract version from pubspec.yaml
-        run: |
-          const fs = require('fs');
-          const yaml = require('js-yaml');
-          const pubspec = yaml.load(fs.readFileSync('pubspec.yaml', 'utf8'));
-          console.log(`::set-output name=version::${pubspec.version}`);
         id: extract_version
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            const yaml = require('js-yaml');
+            const pubspec = yaml.load(fs.readFileSync('pubspec.yaml', 'utf8'));
+            return pubspec.version;
 
       # Clean Cache
       - name: Clean Cache
@@ -70,5 +69,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*"
-          tag: ${{ steps.extract_version.outputs.version }}
+          tag: ${{ steps.extract_version.outputs.result }}
           token: ${{ secrets.TOKEN }}
