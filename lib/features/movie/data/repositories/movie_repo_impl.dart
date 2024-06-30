@@ -10,29 +10,28 @@ class MovieRepositoryImpl implements MovieRepository {
   MovieRepositoryImpl(this.api);
   @override
   Future<DataState<List<GenreMovieModel>>> getAllGenreData() async {
-  try {
-    final response = await api.tmdb.v3.genres.getMovieList();
-    List<Map<String, dynamic>> genres = (response['genres'] as List<dynamic>)
-        .map((e) => Map<String, dynamic>.from(e))
-        .toList();
-    List<GenreMovieModel> genreModels =
-        genres.map((e) => GenreMovieModel.fromJson(e)).toList();
+    try {
+      final response = await api.tmdb.v3.genres.getMovieList();
+      List<Map<String, dynamic>> genres = (response['genres'] as List<dynamic>)
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
+      List<GenreMovieModel> genreModels =
+          genres.map((e) => GenreMovieModel.fromJson(e)).toList();
 
-    // Create a list of futures
-    final futures = genreModels.map((genreModel) async {
-      final genreResponse = await getGenres(id: genreModel.id);
-      genreModel.movies = genreResponse.data;
-    }).toList();
+      // Create a list of futures
+      final futures = genreModels.map((genreModel) async {
+        final genreResponse = await getGenres(id: genreModel.id);
+        genreModel.movies = genreResponse.data;
+      }).toList();
 
-    // Wait for all futures to complete
-    await Future.wait(futures);
+      // Wait for all futures to complete
+      await Future.wait(futures);
 
-    return DataSuccess(genreModels);
-  } catch (e) {
-    return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
+      return DataSuccess(genreModels);
+    } catch (e) {
+      return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
+    }
   }
-}
-
 
   @override
   Future<DataState<List<Movie>>> getGenres(
@@ -65,18 +64,17 @@ class MovieRepositoryImpl implements MovieRepository {
 
   @override
   Future<DataState<List<Movie>>> getPopularMovies() async {
-  try {
-    final response = await api.tmdb.v3.movies.getPopular();
-    final List<dynamic> results = response['results'];
-    final List<Movie> popularMovies = results
-        .map((dynamic item) => Movie.fromJson(item as Map<String, dynamic>))
-        .toList();
-    return DataSuccess(popularMovies);
-  } catch (e) {
-    return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
+    try {
+      final response = await api.tmdb.v3.movies.getPopular();
+      final List<dynamic> results = response['results'];
+      final List<Movie> popularMovies = results
+          .map((dynamic item) => Movie.fromJson(item as Map<String, dynamic>))
+          .toList();
+      return DataSuccess(popularMovies);
+    } catch (e) {
+      return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
+    }
   }
-}
-
 
   @override
   Future<DataState<List<Movie>>> getRelatedMovies({required int id}) async {

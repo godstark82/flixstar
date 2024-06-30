@@ -1,15 +1,15 @@
 import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/core/usecases/usecase.dart';
 import 'package:flixstar/features/anime/data/models/anime_genre_model.dart';
-import 'package:flixstar/features/anime/data/repositories/anime_repo_impl.dart';
+import 'package:flixstar/features/anime/domain/repositories/anime_repository.dart';
+import 'package:flixstar/injection_container.dart';
 
 class GetAnimeGenresDataUseCase
     extends UseCase<DataState<List<AnimeGenreModel>>, void> {
-  AnimeRepoImpl animeRepository;
-
-  GetAnimeGenresDataUseCase(this.animeRepository);
+  GetAnimeGenresDataUseCase();
   @override
   Future<DataState<List<AnimeGenreModel>>> call(void params) async {
-    return await animeRepository.getAllGenresData();
+    final animeRepo = sl<AnimeRepository>();
+    return await animeRepo.getAllGenresData();
   }
 }

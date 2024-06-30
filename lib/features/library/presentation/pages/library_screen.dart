@@ -1,5 +1,5 @@
 
-import 'package:flixstar/common/heading_widget.dart';
+import 'package:flixstar/common/widgets/heading_widget.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
 import 'package:flixstar/features/movie/presentation/widgets/movie_card.dart';

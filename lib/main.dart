@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:flixstar/common/update_screen.dart';
+import 'package:flixstar/common/pages/update_screen.dart';
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_bloc.dart';
 import 'package:flixstar/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
+import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
 import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
 import 'package:flixstar/injection_container.dart';
 import 'package:flixstar/core/utils/theme_data.dart';
@@ -68,6 +69,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider<HomeBloc>(create: (context) => sl<HomeBloc>()),
+          BlocProvider<MovieBloc>(create: (context) => sl<MovieBloc>()),
           BlocProvider(create: (context) => LibraryBloc()), // Library Bloc
           BlocProvider(create: (context) => HistoryBloc(sl())), // Episode Bloc
           BlocProvider(create: (context) => SearchBloc()), // History Bloc

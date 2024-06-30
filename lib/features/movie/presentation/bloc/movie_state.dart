@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:startapp_sdk/startapp.dart';
 
 abstract class MovieState extends Equatable {
   final String? sourceHtml;

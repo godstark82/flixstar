@@ -1,6 +1,6 @@
 
 import 'package:flixstar/features/anime/data/models/source_model.dart';
-import 'package:flixstar/common/url_video_player.dart';
+import 'package:flixstar/common/pages/url_video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jikan_api/jikan_api.dart';

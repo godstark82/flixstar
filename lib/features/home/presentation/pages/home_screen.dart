@@ -5,13 +5,12 @@ import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flixstar/features/home/presentation/widgets/genre_movies_page.dart';
 import 'package:flixstar/features/history/presentation/pages/history_page.dart';
-import 'package:flixstar/common/carousel_widget.dart';
-import 'package:flixstar/common/exit_dialoge.dart';
+import 'package:flixstar/common/widgets/carousel_widget.dart';
+import 'package:flixstar/common/widgets/exit_dialoge.dart';
 import 'package:flixstar/features/movie/presentation/widgets/movie_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:startapp_sdk/startapp.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -57,9 +56,7 @@ class HomeScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GenreMovieList(genre: state.movieGenres![index]);
                       }),
-                  SliverToBoxAdapter(
-                    child: StartAppBanner(state.bannerAd!),
-                  )
+                  
                 ],
               );
             } else if (state is HomeLoadingState) {

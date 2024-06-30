@@ -3,9 +3,10 @@ import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/search/domain/repositories/search_repo.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/injection_container.dart';
 
 class SeachRepoImpl implements SearchRepo {
-  API api = API();
+  final api = sl<API>();
 
   @override
   Future<DataState<List<Movie>>> searchMovie(String query) async {

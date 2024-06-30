@@ -19,12 +19,10 @@ import 'package:jikan_api/jikan_api.dart';
 class DNavigator {
   // to movie details
   static void toMovieDetails(Movie movie) {
-    Get.to(() => BlocProvider<MovieBloc>(
-          create: (context) {
-            return sl<MovieBloc>();
-          },
-          child: MovieDetailsPage(movie: movie),
-        ));
+    Get.to(() => Builder(builder: (context) {
+          context.read<MovieBloc>().add(LoadMovieDetailEvent(movie: movie));
+          return MovieDetailsPage(movie: movie);
+        }));
   }
 
   // to TV Details

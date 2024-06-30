@@ -1,12 +1,12 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/movie/domain/usecases/movie_detail_usercase.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_state.dart';
-import 'package:flixstar/injection_container.dart';
 import 'package:equatable/equatable.dart';
-import 'package:startapp_sdk/startapp.dart';
 
 part 'movie_event.dart';
 
@@ -14,27 +14,48 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   final GetMovieDetailUseCase _getMovieDetailUseCase;
 
   MovieBloc(this._getMovieDetailUseCase) : super(MovieLoadingState()) {
-    on<LoadMovieDetailEvent>((event, emit) async {
-      emit(MovieLoadingState());
+    on<LoadMovieDetailEvent>(_onLoadMovieDetail);
+  }
+
+  void _onLoadMovieDetail(
+      LoadMovieDetailEvent event, Emitter<MovieState> emit) async {
+    emit(MovieLoadingState());
+
+    const int maxRetries = 3;
+    int retryCount = 0;
+
+    while (retryCount < maxRetries) {
       try {
+        log('Attempting to get movie detail... Attempt: ${retryCount + 1}');
+        final movieDetailResult =
+            await _getMovieDetailUseCase.call(event.movie);
 
-        // initialisation
-        final startAppSdk = sl<StartAppSdk>();
-        final html = (await _getMovieDetailUseCase.call(event.movie)).data;
+        if (movieDetailResult is DataSuccess<Movie>) {
+          emit(MovieLoadedState(sourceHtml: movieDetailResult.data?.source));
+          return;
+        } else {
+          retryCount++;
+          log('Retry Count: $retryCount');
+          if (retryCount >= maxRetries) {
+            emit(MovieErrorState('Failed to load movie source.'));
+            return;
+          }
+        }
+      } catch (e) {
+        log('Retry Count: $retryCount');
+        retryCount++;
+        log('Exception occurred: $e. Retrying... ($retryCount/$maxRetries)');
 
-        // source null handling
-        log(html != null ? 'html found' : 'NOT AVAILABLE');
-        if (html == null) {
-          emit(MovieErrorState('Movie not found'));
+        if (retryCount >= maxRetries) {
+          log('Maximum retry attempts reached. Returning MovieErrorState.');
+          emit(MovieErrorState(
+              'Failed to load movie source after $maxRetries attempts.'));
           return;
         }
 
-        // state emit
-        emit(MovieLoadedState(sourceHtml: html.source));
-      } catch (e) {
-        log('Can\'t load html ${e.toString()}');
-        emit(MovieErrorState(e.toString()));
+        await Future.delayed(
+            Duration(milliseconds: 300)); // Add a delay before retrying
       }
-    });
+    }
   }
 }

@@ -12,10 +12,8 @@ import 'package:flixstar/features/movie/domain/usecases/popular_movies_usecase.d
 import 'package:flixstar/features/movie/domain/usecases/trending_movies_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/genres_data_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/top_rated_usecase.dart';
-import 'package:flixstar/injection_container.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jikan_api/jikan_api.dart';
-import 'package:startapp_sdk/startapp.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -66,14 +64,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final topRatedTvs = results[3].data;
         final tvGenreDetails = results[4].data;
 
-        // load the ads
-        final startAppSdk = sl<StartAppSdk>();
-        final bannerAd =
-            await startAppSdk.loadBannerAd(StartAppBannerType.BANNER);
-
         // emit the State
         emit(HomeAnimeLoadingState(
-          bannerAd: bannerAd,
           trendingMovie: trendingMovies,
           popularMovie: popularMovies,
           movieGenres: movieGenreDetails,
@@ -93,7 +85,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         final genresData = animeResults[1].data;
 
         emit(HomeLoadedState(
-          bannerAd: bannerAd,
           popularMovie: popularMovies,
           topRatedTvs: topRatedTvs,
           tvGenres: tvGenreDetails,

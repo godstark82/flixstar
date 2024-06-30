@@ -1,7 +1,7 @@
 import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/core/usecases/usecase.dart';
 import 'package:flixstar/features/movie/data/models/genre_movie_model.dart';
-import 'package:flixstar/features/movie/data/repositories/movie_repo_impl.dart';
+import 'package:flixstar/features/movie/domain/repositories/movie_repository.dart';
 import 'package:flixstar/injection_container.dart';
 
 class GenreDetailUsecase
@@ -10,7 +10,7 @@ class GenreDetailUsecase
 
   @override
   Future<DataState<List<GenreMovieModel>>> call(void params) async {
-    final movieRepository = sl<MovieRepositoryImpl>();
+    final movieRepository = sl<MovieRepository>();
     return await movieRepository.getAllGenreData();
   }
 }

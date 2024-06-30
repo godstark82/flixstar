@@ -2,9 +2,8 @@ part of 'tv_bloc.dart';
 
 abstract class TvState extends Equatable {
   final String? html;
-  final StartAppBannerAd? bannerAd;
 
-  const TvState({this.html, this.bannerAd});
+  const TvState({this.html});
 
   @override
   List<Object?> get props => [html];
@@ -15,7 +14,7 @@ class TvLoadingState extends TvState {
 }
 
 class TvLoadedState extends TvState {
-  const TvLoadedState({required super.html, super.bannerAd});
+  const TvLoadedState({required super.html});
 }
 
 class TvErrorState extends TvState {

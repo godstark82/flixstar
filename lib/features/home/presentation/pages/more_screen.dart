@@ -1,10 +1,10 @@
-import 'package:flixstar/common/update_screen.dart';
+import 'package:flixstar/common/pages/update_screen.dart';
+import 'package:flixstar/common/widgets/heading_2.dart';
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/core/utils/my_snack.dart';
 import 'package:flixstar/features/history/presentation/pages/history_page.dart';
 import 'package:flixstar/features/library/presentation/pages/library_screen.dart';
-import 'package:flixstar/common/flat_button.dart';
-import 'package:flixstar/common/heading_2.dart';
+import 'package:flixstar/common/widgets/flat_button.dart';
 import 'package:flixstar/features/settings/presentation/pages/settings_screen.dart';
 import 'package:flixstar/main.dart';
 import 'package:flutter/material.dart';

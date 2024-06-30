@@ -1,8 +1,7 @@
 // ignore_for_file: invalid_use_of_visible_for_testing_member
 
 import 'dart:developer';
-
-import 'package:flixstar/features/history/data/repositories/history_repo_impl.dart';
+import 'package:flixstar/features/history/domain/repositories/history_repo.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_event.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_state.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
@@ -11,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
-  final HistoryRepoImpl historyRepo;
+  final HistoryRepository historyRepo;
   HistoryBloc(this.historyRepo) : super(LoadingHistory()) {
     on<DeleteFromHistory>(_deleteSingleItemFromHistory);
     on<LoadHistoryEvent>(_loadHistory);
