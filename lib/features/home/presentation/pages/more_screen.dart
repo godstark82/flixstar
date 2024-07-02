@@ -1,3 +1,4 @@
+import 'package:flixstar/common/func/check_update.dart';
 import 'package:flixstar/common/pages/update_screen.dart';
 import 'package:flixstar/common/widgets/heading_2.dart';
 import 'package:flixstar/core/const/const.dart';
@@ -6,9 +7,7 @@ import 'package:flixstar/features/history/presentation/pages/history_page.dart';
 import 'package:flixstar/features/library/presentation/pages/library_screen.dart';
 import 'package:flixstar/common/widgets/flat_button.dart';
 import 'package:flixstar/features/settings/presentation/pages/settings_screen.dart';
-import 'package:flixstar/main.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:share_plus/share_plus.dart';

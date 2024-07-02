@@ -1,4 +1,4 @@
-import 'package:flixstar/injection_container.dart';
+import 'package:flixstar/common/func/load_ad.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -15,7 +15,7 @@ class VideoPlayer extends StatefulWidget {
 
 class _VideoPlayerState extends State<VideoPlayer> {
   late WebViewControllerPlus _controller;
-  StartAppInterstitialAd? interstitialAd;
+  StartAppRewardedVideoAd? videoAd;
 
   void setUpController() {
     _controller = WebViewControllerPlus();
@@ -27,22 +27,12 @@ class _VideoPlayerState extends State<VideoPlayer> {
     _controller.setJavaScriptMode(JavaScriptMode.unrestricted);
   }
 
-  void loadInterstitialAd() async {
-    final startAppSdk = sl<StartAppSdk>();
-    startAppSdk.loadInterstitialAd().then((ad) {
-      interstitialAd = ad;
-    }).onError((e, trace) {
-      print(e);
-    });
-  }
-
   @override
   void initState() {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     setUpController();
-    loadInterstitialAd();
     super.initState();
   }
 
@@ -52,13 +42,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
-    interstitialAd?.show().then((shown) {
-      if (shown) {
-        interstitialAd = null;
-        loadInterstitialAd();
-      }
-      return null;
-    });
   }
 
   @override
@@ -75,6 +58,15 @@ class _VideoPlayerState extends State<VideoPlayer> {
             Get.back();
           }
         },
-        child: Scaffold(body: WebViewWidget(controller: _controller)));
+        child: Scaffold(
+            body: FutureBuilder(
+                future: loadRewardedAd(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData && snapshot.data != null) {
+                    videoAd = snapshot.data as StartAppRewardedVideoAd;
+                    videoAd?.show();
+                  }
+                  return WebViewWidget(controller: _controller);
+                })));
   }
 }

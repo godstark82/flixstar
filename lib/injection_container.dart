@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flixstar/api/api.dart';
 import 'package:flixstar/api/gogo_api.dart';
+import 'package:flixstar/common/func/check_update.dart';
+import 'package:flixstar/common/func/fetch_firebase_data.dart';
 import 'package:flixstar/features/anime/data/repositories/anime_repo_impl.dart';
 import 'package:flixstar/features/anime/domain/repositories/anime_repository.dart';
 import 'package:flixstar/features/anime/domain/usecases/all_genre_data_usecase.dart';
@@ -9,7 +13,9 @@ import 'package:flixstar/features/anime/domain/usecases/anime_detail_usecase.dar
 import 'package:flixstar/features/anime/domain/usecases/top_anime_usercase.dart';
 import 'package:flixstar/features/history/data/repositories/history_repo_impl.dart';
 import 'package:flixstar/features/history/domain/repositories/history_repo.dart';
+import 'package:flixstar/features/history/presentation/bloc/history_bloc.dart';
 import 'package:flixstar/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
 import 'package:flixstar/features/movie/data/repositories/movie_repo_impl.dart';
 import 'package:flixstar/features/movie/domain/repositories/movie_repository.dart';
 import 'package:flixstar/features/movie/domain/usecases/genre_detail_usecase.dart';
@@ -18,6 +24,7 @@ import 'package:flixstar/features/movie/domain/usecases/popular_movies_usecase.d
 import 'package:flixstar/features/movie/domain/usecases/top_rated_movie_usecase.dart';
 import 'package:flixstar/features/movie/domain/usecases/trending_movies_usecase.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
+import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
 import 'package:flixstar/features/tv/data/repositories/tv_repo_impl.dart';
 import 'package:flixstar/features/tv/domain/repositories/tv_repository.dart';
 import 'package:flixstar/features/tv/domain/usecases/genres_data_usecase.dart';
@@ -25,7 +32,6 @@ import 'package:flixstar/features/tv/domain/usecases/top_rated_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/tv_detail_usecase.dart';
 import 'package:flixstar/features/tv/presentation/bloc/tv_bloc.dart';
 import 'package:flixstar/firebase_options.dart';
-import 'package:flixstar/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
@@ -42,7 +48,8 @@ Future<void> initialiseDependencies() async {
   await checkForNewUpdate();
   await Hive.initFlutter();
   await Future.wait([
-    if (!kIsWeb) sl<StartAppSdk>().setTestAdsEnabled(false),
+    if (!kIsWeb)
+      if (!Platform.isWindows) sl<StartAppSdk>().setTestAdsEnabled(false),
     Hive.openBox('library'),
     Hive.openBox('settings'),
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -50,6 +57,7 @@ Future<void> initialiseDependencies() async {
 }
 
 Future<void> dependencies() async {
+  // core
   sl.registerSingleton<Dio>(Dio());
 
   //ads SDK
@@ -80,7 +88,11 @@ Future<void> dependencies() async {
   sl.registerLazySingleton(() => TopAnimeUseCase());
 
   // blocs
-  sl.registerFactory<HomeBloc>(() => HomeBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
+  sl.registerFactory<HomeBloc>(
+      () => HomeBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory<MovieBloc>(() => MovieBloc(sl()));
   sl.registerFactory<TvBloc>(() => TvBloc(sl()));
+  sl.registerFactory<LibraryBloc>(() => LibraryBloc());
+  sl.registerFactory<HistoryBloc>(() => HistoryBloc(sl()));
+  sl.registerFactory<SearchBloc>(() => SearchBloc());
 }

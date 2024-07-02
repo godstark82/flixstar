@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/tv/domain/usecases/tv_detail_usecase.dart';
 import 'package:equatable/equatable.dart';
-import 'package:tmdb_api/tmdb_api.dart';
-
 part 'tv_event.dart';
 part 'tv_state.dart';
 

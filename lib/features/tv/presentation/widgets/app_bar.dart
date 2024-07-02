@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flixstar/common/pages/url_video_player.dart';
 import 'package:flixstar/common/pages/video_player.dart';
@@ -25,59 +24,57 @@ SliverAppBar buildAppBar(BuildContext context, TvModel movie) {
               ? Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  child: BlocBuilder<TvBloc, TvState>(
-                    builder: (context, state) {
-                      if (state is TvLoadingState) {
-                        return Center(
-                          child: SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator()),
-                        );
-                      } else if (state is TvLoadedState) {
-                        return PlayButton(
-                            icon: Icon(state.html != null
-                                ? Icons.play_arrow
-                                : Icons.info),
-                            label: Text(
-                                state.html != null ? 'Play' : 'Coming Soon..'),
-                            onPressed: () async {
-                              if (state.html != null) {
-                                if (!context
+                  child:
+                      BlocBuilder<TvBloc, TvState>(builder: (context, state) {
+                    if (state is TvLoadingState) {
+                      return Center(
+                        child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator()),
+                      );
+                    } else if (state is TvLoadedState) {
+                      return PlayButton(
+                          icon: Icon(state.html != null
+                              ? Icons.play_arrow
+                              : Icons.info),
+                          label: Text(
+                              state.html != null ? 'Play' : 'Coming Soon..'),
+                          onPressed: () async {
+                            if (state.html != null) {
+                              if (!context
+                                  .read<HistoryBloc>()
+                                  .state
+                                  .tvs
+                                  .contains(movie)) {
+                                context
                                     .read<HistoryBloc>()
-                                    .state
-                                    .tvs
-                                    .contains(movie)) {
-                                  context
-                                      .read<HistoryBloc>()
-                                      .add(AddToHistoryEvent(tv: movie));
-                                }
-                                if (kIsWeb) {
+                                    .add(AddToHistoryEvent(tv: movie));
+                              }
+                              if (kIsWeb) {
+                                Get.to(() => WebVideoPlayer(html: state.html!));
+                              } else {
+                                if (Platform.isWindows) {
                                   Get.to(
                                       () => WebVideoPlayer(html: state.html!));
-                                } else {
-                                  if (Platform.isWindows) {
-                                    Get.to(() =>
-                                        WebVideoPlayer(html: state.html!));
-                                  }
-                                  if (Platform.isAndroid) {
-                                    Get.to(
-                                        () => VideoPlayer(html: state.html!));
-                                  }
+                                }
+                                if (Platform.isAndroid) {
+                                  Get.to(() => VideoPlayer(html: state.html!));
                                 }
                               }
-                            });
-                      } else if (state is TvErrorState) {
-                        return Center(
-                          child: PlayButton(
-                              icon: Icon(Icons.warning_amber),
-                              label: Text('Not Available'),
-                              onPressed: () {}),
-                        );
-                      }
-                      return SizedBox();
-                    },
-                  ))
+                            }
+                          });
+                    } else if (state is TvErrorState) {
+                      return Center(
+                        child: PlayButton(
+                          icon: Icon(Icons.warning_amber),
+                          label: Text('Not Available'),
+                          onPressed: () {},
+                        ),
+                      );
+                    }
+                    return SizedBox();
+                  }))
               : SizedBox()),
       forceMaterialTransparency: true,
       expandedHeight: context.height * 0.5,
