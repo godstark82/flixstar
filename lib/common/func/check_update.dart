@@ -10,12 +10,14 @@ Future<void> checkForNewUpdate() async {
     const url =
         'https://api.github.com/repos/godstark82/flixstar/releases/latest';
     final response = await dio.get(url);
+    String gitHubVersion = response.data['tag_name'];
     final packageInfo = await PackageInfo.fromPlatform();
-    print('latest Version: ${response.data['tag_name']}');
-    final String cloudVersion = response.data['tag_name'];
-    final String localVersion =
-        'v${packageInfo.version}+${packageInfo.buildNumber}';
-    if (cloudVersion == localVersion) {
+    final List<String> cloudVersion = gitHubVersion.split('+');
+    print(cloudVersion);
+    final String localVersion = packageInfo.version;
+    print('Cloud Version: ${cloudVersion.first}');
+    print('Local Version: $localVersion');
+    if (cloudVersion.first == localVersion) {
       return;
     } else {
       isUpdateAvailable = true;
