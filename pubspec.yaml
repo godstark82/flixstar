@@ -2,7 +2,7 @@ name: flixstar
 description: "A Movies Streaming app"
 publish_to: "none"
 
-version: 1.0.9+1
+version: 1.0.9+3
 
 environment:
   sdk: ">=3.3.4 <4.0.0"
