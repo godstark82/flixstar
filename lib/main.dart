@@ -1,25 +1,25 @@
-
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:flixstar/common/pages/update_screen.dart';
 import 'package:flixstar/core/const/const.dart';
+import 'package:flixstar/core/utils/theme_data.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_bloc.dart';
 import 'package:flixstar/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flixstar/features/home/presentation/pages/home.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
 import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
 import 'package:flixstar/injection_container.dart';
-import 'package:flixstar/core/utils/theme_data.dart';
-import 'package:flixstar/features/home/presentation/pages/home.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialiseDependencies();
+  await MobileAds.instance.initialize().then((InitializationStatus status) {
+  });
   runApp(isUpdateAvailable ? UpdateWarningScreen() : App());
 }
-
-
 
 class App extends StatelessWidget {
   const App({super.key});

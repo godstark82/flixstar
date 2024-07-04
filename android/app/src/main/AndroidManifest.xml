@@ -54,20 +54,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <!-- TODO replace YOUR_APP_ID with actual value -->
         <meta-data
-            android:name="com.startapp.sdk.APPLICATION_ID"
-            android:value="205249376" />
-                    <!-- TODO Splash Ad controlled by the android:value below -->
-        <provider
-            android:authorities="com.startapp.flutter.sdk.${applicationId}"
-            android:name="com.startapp.flutter.sdk.StartAppFlutterHelper"
-            android:exported="false">
-            <meta-data
-                android:name="com.startapp.sdk.SPLASH_ADS_ENABLED"
-                android:value="false" />
-        </provider>
-
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1216309845220220~3562390072"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility?hl=en and

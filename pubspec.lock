@@ -544,6 +544,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  google_mobile_ads:
+    dependency: "direct main"
+    description:
+      name: google_mobile_ads
+      sha256: e2d18992d30b2be77cb6976b931112fc3c4612feffb5eb7a8b036bd7a64934da
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   graphs:
     dependency: transitive
     description:
@@ -1109,14 +1117,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.1"
-  startapp_sdk:
-    dependency: "direct main"
-    description:
-      name: startapp_sdk
-      sha256: fde169623c83d2a5009cecef168173dff973395de1b0fb18ccfd401dbd9d54fd
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.1"
   stream_channel:
     dependency: transitive
     description:
@@ -1301,6 +1301,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  version:
+    dependency: "direct main"
+    description:
+      name: version
+      sha256: "3d4140128e6ea10d83da32fef2fa4003fccbf6852217bb854845802f04191f94"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
   video_player:
     dependency: transitive
     description:

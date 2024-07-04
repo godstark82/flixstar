@@ -2,11 +2,13 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/movie/domain/usecases/movie_detail_usercase.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_state.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 part 'movie_event.dart';
 

@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flixstar/common/pages/url_video_player.dart';
 import 'package:flixstar/common/pages/video_player.dart';
 import 'package:flixstar/common/widgets/details_chip.dart';
+import 'package:flixstar/common/widgets/dns_dialogue.dart';
 import 'package:flixstar/common/widgets/play_button.dart';
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_bloc.dart';
@@ -18,6 +19,17 @@ import 'package:get/get.dart';
 SliverAppBar buildAppBar(BuildContext context, TvModel movie) {
   return SliverAppBar(
       primary: true,
+      actions: [
+        IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context, builder: (context) => dnsDialogue(context));
+            },
+            icon: Icon(
+              Icons.help,
+              color: Colors.white,
+            ))
+      ],
       bottom: PreferredSize(
           preferredSize: Size.fromHeight(50),
           child: streamMode
@@ -67,9 +79,13 @@ SliverAppBar buildAppBar(BuildContext context, TvModel movie) {
                     } else if (state is TvErrorState) {
                       return Center(
                         child: PlayButton(
-                          icon: Icon(Icons.warning_amber),
+                          icon: Icon(Icons.help),
                           label: Text('Not Available'),
-                          onPressed: () {},
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => dnsDialogue(context));
+                          },
                         ),
                       );
                     }

@@ -1,8 +1,10 @@
-import 'package:flixstar/common/func/load_ad.dart';
+import 'dart:developer';
+
+import 'package:flixstar/core/const/const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:startapp_sdk/startapp.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
 class VideoPlayer extends StatefulWidget {
@@ -15,7 +17,29 @@ class VideoPlayer extends StatefulWidget {
 
 class _VideoPlayerState extends State<VideoPlayer> {
   late WebViewControllerPlus _controller;
-  StartAppRewardedVideoAd? videoAd;
+  RewardedAd? _rewardedAd;
+  int _numRewardedLoadAttempts = 0;
+
+  void _createRewardedAd() {
+    RewardedAd.load(
+        adUnitId: rewardedId1,
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+          onAdLoaded: (RewardedAd ad) {
+            log('$ad loaded.');
+            _rewardedAd = ad;
+            _numRewardedLoadAttempts = 0;
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            log('RewardedAd failed to load: $error');
+            _rewardedAd = null;
+            _numRewardedLoadAttempts += 1;
+            if (_numRewardedLoadAttempts < 3) {
+              _createRewardedAd();
+            }
+          },
+        ));
+  }
 
   void setUpController() {
     _controller = WebViewControllerPlus();
@@ -33,15 +57,47 @@ class _VideoPlayerState extends State<VideoPlayer> {
         [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     setUpController();
+    _createRewardedAd();
     super.initState();
   }
 
   @override
   void dispose() {
-    super.dispose();
+    _showRewardedAd();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+    super.dispose();
+
+    _rewardedAd?.dispose();
+  }
+
+  void _showRewardedAd() {
+    if (_rewardedAd == null) {
+      print('Warning: attempt to show rewarded before loaded.');
+      return;
+    }
+    _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (RewardedAd ad) =>
+          print('ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (RewardedAd ad) {
+        print('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        _createRewardedAd();
+      },
+      onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
+        print('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        _createRewardedAd();
+      },
+    );
+
+    _rewardedAd!.setImmersiveMode(true);
+    _rewardedAd!.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+      print('$ad with reward $RewardItem(${reward.amount}, ${reward.type})');
+    });
+    _rewardedAd = null;
   }
 
   @override
@@ -58,15 +114,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
             Get.back();
           }
         },
-        child: Scaffold(
-            body: FutureBuilder(
-                future: loadRewardedAd(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData && snapshot.data != null) {
-                    videoAd = snapshot.data as StartAppRewardedVideoAd;
-                    videoAd?.show();
-                  }
-                  return WebViewWidget(controller: _controller);
-                })));
+        child: Scaffold(body: WebViewWidget(controller: _controller)));
   }
 }
