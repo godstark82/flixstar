@@ -13,7 +13,7 @@ import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
 import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
 import 'package:flixstar/injection_container.dart';
 
-void main(List<String> args) async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialiseDependencies();
   await MobileAds.instance.initialize().then((InitializationStatus status) {

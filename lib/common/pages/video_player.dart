@@ -63,7 +63,6 @@ class _VideoPlayerState extends State<VideoPlayer> {
 
   @override
   void dispose() {
-    _showRewardedAd();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom]);
@@ -114,6 +113,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
             Get.back();
           }
         },
-        child: Scaffold(body: WebViewWidget(controller: _controller)));
+        child: Scaffold(body: Builder(builder: (context) {
+          _showRewardedAd();
+          return WebViewWidget(controller: _controller);
+        })));
   }
 }
