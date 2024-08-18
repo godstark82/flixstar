@@ -51012,7 +51012,7 @@ a8d(a){var s=0,r=A.x(t.N),q,p=2,o,n,m,l,k,j,i,h,g,f
 var $async$AZ=A.t(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:g=$.dE().$1$0(t.kE)
 p=4
-n="https://vidsrc.to/embed/movie/"+a
+n="https://vidsrc.icu/embed/movie/"+a
 A.i(n)
 s=7
 return A.p(J.aZO(g,n,t.z),$async$AZ)
@@ -51044,7 +51044,7 @@ a8s(a){var s=0,r=A.x(t.N),q,p=2,o,n,m,l,k,j,i,h,g,f
 var $async$Ba=A.t(function(b,c){if(b===1){o=c
 s=p}while(true)switch(s){case 0:g=$.dE().$1$0(t.kE)
 p=4
-n="https://vidsrc.to/embed/tv/"+a
+n="https://vidsrc.icu/embed/tv/"+a
 s=7
 return A.p(J.aZO(g,n,t.z),$async$Ba)
 case 7:m=c
