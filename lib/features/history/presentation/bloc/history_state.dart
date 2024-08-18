@@ -1,6 +1,6 @@
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
-import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 
 abstract class HistoryState extends Equatable {
   final List<Movie> movies;

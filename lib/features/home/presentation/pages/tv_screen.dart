@@ -4,8 +4,8 @@ import 'package:flixstar/features/history/presentation/bloc/history_state.dart';
 // ignore: unused_import
 import 'package:flixstar/features/movie/data/models/genre_movie_model.dart';
 import 'package:flixstar/features/tv/data/models/genre_tv_model.dart';
-import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/tv/presentation/pages/tv_page.dart';
 import 'package:flixstar/features/home/presentation/widgets/genre_tv_page.dart';
 import 'package:flixstar/features/history/presentation/pages/history_page.dart';
@@ -33,7 +33,7 @@ class TvScreen extends StatelessWidget {
             if (state is HomeLoadedState || state is HomeAnimeLoadingState) {
               return CustomScrollView(
                 slivers: [
-                  sliverCarouselTvBar(context, tvs: state.topRatedTvs!),
+                  sliverCarouselTvBar(context, tvs: state.topRatedTvs ?? []),
                   SliverToBoxAdapter(
                       child: BlocBuilder<HistoryBloc, HistoryState>(
                     builder: (context, state) {

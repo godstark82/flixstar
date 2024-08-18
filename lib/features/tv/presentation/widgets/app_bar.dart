@@ -122,7 +122,7 @@ SliverAppBar buildAppBar(BuildContext context, TvModel movie) {
                                 imageUrl: movie.posterPath.toString(),
                                 height: context.height * 0.25),
                             SizedBox(height: 15),
-                            Text(movie.originalName ?? movie.name.toString(),
+                            Text(movie.originalName ?? movie.name ?? 'N/A',
                                 style: Theme.of(context)
                                     .textTheme
                                     .headlineSmall

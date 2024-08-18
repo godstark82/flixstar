@@ -5,8 +5,8 @@ import 'package:flixstar/core/routes/routes.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
-import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/core/utils/my_snack.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

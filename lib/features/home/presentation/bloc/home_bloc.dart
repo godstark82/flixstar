@@ -6,10 +6,10 @@ import 'package:flixstar/features/anime/domain/usecases/top_anime_usercase.dart'
 import 'package:flixstar/features/movie/data/models/genre_movie_model.dart';
 import 'package:flixstar/features/tv/data/models/genre_tv_model.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
-import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/movie/domain/usecases/genre_detail_usecase.dart';
 import 'package:flixstar/features/movie/domain/usecases/popular_movies_usecase.dart';
 import 'package:flixstar/features/movie/domain/usecases/trending_movies_usecase.dart';
+import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/tv/domain/usecases/genres_data_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/top_rated_usecase.dart';
 import 'package:equatable/equatable.dart';

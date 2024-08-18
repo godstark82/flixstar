@@ -28,7 +28,7 @@ class TvBloc extends Bloc<TvEvent, TvState> {
         final tvDetailResult = await getTvDetailsUseCase.call(event.tv);
 
         if (tvDetailResult is DataSuccess<TvModel>) {
-          emit(TvLoadedState(html: tvDetailResult.data?.source!));
+          emit(TvLoadedState(html: tvDetailResult.data?.source));
           return;
         } else {
           retryCount++;

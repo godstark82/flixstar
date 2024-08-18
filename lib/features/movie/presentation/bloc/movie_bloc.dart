@@ -21,8 +21,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   void _onLoadMovieDetail(
       LoadMovieDetailEvent event, Emitter<MovieState> emit) async {
     emit(MovieLoadingState());
-
-  
+    
     int retryCount = 0;
 
     while (retryCount < maxRetries) {
