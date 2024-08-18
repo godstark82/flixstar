@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
+import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/tv/domain/usecases/tv_detail_usecase.dart';
@@ -18,7 +19,7 @@ class TvBloc extends Bloc<TvEvent, TvState> {
   void _onLoadTvDetail(LoadTvEvent event, Emitter<TvState> emit) async {
     emit(TvLoadingState());
 
-    const int maxRetries = 3;
+
     int retryCount = 0;
 
     while (retryCount < maxRetries) {

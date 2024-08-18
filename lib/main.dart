@@ -16,8 +16,7 @@ import 'package:flixstar/injection_container.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialiseDependencies();
-  await MobileAds.instance.initialize().then((InitializationStatus status) {
-  });
+  await MobileAds.instance.initialize().then((InitializationStatus status) {});
   runApp(isUpdateAvailable ? UpdateWarningScreen() : App());
 }
 

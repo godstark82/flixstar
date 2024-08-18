@@ -20,6 +20,7 @@ Future<void> fetchFirebaseData() async {
         showAds = _showAds;
         forceUpdate = _forceUpdate;
       } catch (e) {
+        
         debugPrint(e.toString());
         rethrow;
       }

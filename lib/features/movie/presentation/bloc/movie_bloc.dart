@@ -8,7 +8,6 @@ import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/movie/domain/usecases/movie_detail_usercase.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_state.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
 part 'movie_event.dart';
 
@@ -23,7 +22,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
       LoadMovieDetailEvent event, Emitter<MovieState> emit) async {
     emit(MovieLoadingState());
 
-    const int maxRetries = 3;
+  
     int retryCount = 0;
 
     while (retryCount < maxRetries) {
