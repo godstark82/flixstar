@@ -23,7 +23,7 @@ class API {
     final dio = sl<Dio>();
 
     try {
-      String movieUrl = 'https://vidsrc.to/embed/movie/$id';
+      String movieUrl = '$vidSrcBaseUrl/embed/movie/$id';
       log('Getting Movie Source from url $movieUrl');
       final response = await dio.get(movieUrl);
       final html = parse(response.data);
