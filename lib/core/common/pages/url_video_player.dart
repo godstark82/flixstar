@@ -93,8 +93,12 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
       src: widget.html,
       width: context.height,
       height: context.width,
-      options:
-          WebViewOptions(browser: BrowserWebViewOptions(allowFullScreen: true)),
+      options: WebViewOptions(
+        navigationDelegate: (WebNavigationRequest request) {
+          return WebNavigationDecision.prevent;
+        },
+        browser: BrowserWebViewOptions(allowFullScreen: true),
+      ),
     );
   }
 }

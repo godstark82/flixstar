@@ -1,34 +1,52 @@
-import 'dart:io';
 import 'dart:ui';
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flixstar/common/pages/url_video_player.dart';
-import 'package:flixstar/common/pages/video_player.dart';
-import 'package:flixstar/common/widgets/details_chip.dart';
-import 'package:flixstar/common/widgets/dns_dialogue.dart';
-import 'package:flixstar/common/widgets/play_button.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+
+import 'package:flixstar/core/common/pages/url_video_player.dart';
+import 'package:flixstar/core/common/widgets/details_chip.dart';
+import 'package:flixstar/core/common/widgets/dns_dialogue.dart';
+import 'package:flixstar/core/common/widgets/play_button.dart';
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_bloc.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_event.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/tv/presentation/bloc/tv_bloc.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 SliverAppBar buildAppBar(BuildContext context, TvModel movie) {
   return SliverAppBar(
       primary: true,
       actions: [
-        IconButton(
-            onPressed: () {
-              showDialog(
-                  context: context, builder: (context) => dnsDialogue(context));
-            },
-            icon: Icon(
-              Icons.help,
-              color: Colors.white,
-            ))
+        BlocBuilder<LibraryBloc, LibraryState>(
+          builder: (context, libState) {
+            if (libState is LoadedLibraryState) {
+              return IconButton(
+                icon: libState.tvs.contains(movie)
+                    ? Icon(
+                        Icons.favorite,
+                        color: Colors.pink,
+                      )
+                    : Icon(
+                        Icons.favorite_border,
+                      ),
+                onPressed: () {
+                  !libState.tvs.contains(movie)
+                      ? context.read<LibraryBloc>().add(AddTvToLibrary(movie))
+                      : context
+                          .read<LibraryBloc>()
+                          .add(RemoveTvFromLibrary(movie));
+                },
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ],
       bottom: PreferredSize(
           preferredSize: Size.fromHeight(50),
@@ -63,17 +81,8 @@ SliverAppBar buildAppBar(BuildContext context, TvModel movie) {
                                     .read<HistoryBloc>()
                                     .add(AddToHistoryEvent(tv: movie));
                               }
-                              if (kIsWeb) {
-                                Get.to(() => WebVideoPlayer(html: state.html!));
-                              } else {
-                                if (Platform.isWindows) {
-                                  Get.to(
-                                      () => WebVideoPlayer(html: state.html!));
-                                }
-                                if (Platform.isAndroid) {
-                                  Get.to(() => VideoPlayer(html: state.html!));
-                                }
-                              }
+                              //! Navigate to Video Player
+                              Get.to(() => WebVideoPlayer(html: state.html!));
                             }
                           });
                     } else if (state is TvErrorState) {

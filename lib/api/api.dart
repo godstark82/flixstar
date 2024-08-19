@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flixstar/core/utils/constants.dart';
+import 'package:flixstar/core/const/constants.dart';
 import 'package:flixstar/injection_container.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 import 'package:html/parser.dart';
@@ -20,38 +20,13 @@ class API {
   TMDB get tmdb => _tmdb;
 
   Future<String> getMovieSource(int id) async {
-      String movieUrl = '$vidSrcBaseUrl/embed/movie/$id';
-      log('Getting Movie Source from url $movieUrl');
-      return movieUrl;
-
+    String movieUrl = '$vidSrcBaseUrl/embed/movie/$id';
+    log('Getting Movie Source from url $movieUrl');
+    return movieUrl;
   }
 
   Future<String> getTvSource(int id) async {
-    final dio = sl<Dio>();
-    try {
-      String tvUrl = '$vidSrcBaseUrl/embed/tv/$id';
-      final response = await dio.get(tvUrl);
-      final html = parse(response.data);
-      final noAdScript = html.outerHtml.replaceAll(adScript, '');
-      return noAdScript;
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
+    String tvUrl = '$vidSrcBaseUrl/embed/tv/$id';
+    return tvUrl;
   }
 }
-
-const String adScript = '''<script>
-(function () {
-  var numb = parseInt(Storage.get('adi'));
-  numb = isNaN(numb) ? 0 : numb;
-  var success = Storage.set('adi', numb + 1);
-  if (!success) numb = Math.floor(Math.random() * 100);
-
-  if (numb % 2) {
-    document.write("<script type='text/javascript' src='lm1/com/precedelaxative/6e/93/66/6e936646bd24f8b9bd12af76368155da.js'><\\/script>");
-  } else {
-    document.write("<script type='text/javascript' src='lm1/com/precedelaxative/88/1d/c4/881dc4c310ba96ddca859431babfc89b.js'><\\/script>");
-  }
-}());
-</script>''';

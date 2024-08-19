@@ -3,7 +3,7 @@ import 'package:flixstar/features/home/presentation/widgets/genre_tv_page.dart';
 import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
 import 'package:flixstar/features/search/presentation/pages/search_result_page.dart';
 import 'package:flixstar/features/search/presentation/pages/search_screen.dart';
-import 'package:flixstar/common/widgets/heading_widget.dart';
+import 'package:flixstar/core/common/widgets/heading_widget.dart';
 import 'package:flixstar/core/utils/my_snack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,4 +1,4 @@
- import 'package:flixstar/common/widgets/other_options.dart';
+ import 'package:flixstar/core/common/widgets/other_options.dart';
 import 'package:flutter/material.dart';
 import 'package:jikan_api/jikan_api.dart';
 

@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:flixstar/features/movie/data/models/movie_model.dart';
 
 abstract class MovieState extends Equatable {
   final String? sourceHtml;
-  const MovieState({this.sourceHtml});
+  final List<Movie>? similar;
+  const MovieState({this.sourceHtml, this.similar});
   @override
   List<Object> get props => [];
 }
@@ -12,7 +14,7 @@ class MovieLoadingState extends MovieState {
 }
 
 class MovieLoadedState extends MovieState {
-  const MovieLoadedState({required super.sourceHtml});
+  const MovieLoadedState({required super.sourceHtml, required super.similar});
 }
 
 class MovieErrorState extends MovieState {

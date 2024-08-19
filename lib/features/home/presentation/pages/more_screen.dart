@@ -1,12 +1,11 @@
-import 'package:flixstar/common/func/check_update.dart';
-import 'package:flixstar/common/pages/update_screen.dart';
-import 'package:flixstar/common/widgets/heading_2.dart';
+import 'package:flixstar/core/common/func/check_update.dart';
+import 'package:flixstar/core/common/pages/update_screen.dart';
+import 'package:flixstar/core/common/widgets/heading_2.dart';
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/core/utils/my_snack.dart';
 import 'package:flixstar/features/history/presentation/pages/history_page.dart';
 import 'package:flixstar/features/library/presentation/pages/library_screen.dart';
-import 'package:flixstar/common/widgets/flat_button.dart';
-import 'package:flixstar/features/settings/presentation/pages/settings_screen.dart';
+import 'package:flixstar/core/common/widgets/flat_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -30,17 +29,17 @@ class MoreOptionScreen extends StatelessWidget {
             ]),
           ),
           actions: [
-            IconButton(
-                onPressed: () {
-                  Get.to(() => SettingScreen());
-                },
-                icon: Icon(Icons.settings))
+            // IconButton(
+            //     onPressed: () {
+            //       Get.to(() => SettingScreen());
+            //     },
+            //     icon: Icon(Icons.settings))
           ]),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               SizedBox(),
@@ -61,7 +60,7 @@ class MoreOptionScreen extends StatelessWidget {
               ),
               SizedBox(),
             ]),
-            SizedBox(height: context.height * 0.25),
+            // SizedBox(height: context.height * 0.25),
             Heading2(text: 'APP'),
             ListTile(
               onTap: () async {

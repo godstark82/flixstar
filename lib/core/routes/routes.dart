@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flixstar/api/gogo_api.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/anime/data/models/source_model.dart';
@@ -27,13 +29,10 @@ class DNavigator {
 
   // to TV Details
   static void toTVDetails(TvModel tv) {
-    Get.to(() => BlocProvider(
-          create: (context) => TvBloc(sl()),
-          child: Builder(builder: (context) {
-            context.read<TvBloc>().add(LoadTvEvent(tv: tv));
-            return TvDetailsPage(tv: tv);
-          }),
-        ));
+    Get.to(() => Builder(builder: (context) {
+          context.read<TvBloc>().add(LoadTvEvent(tv: tv));
+          return TvDetailsPage(tv: tv);
+        }));
   }
 
   static void toAnimeDetails(Anime anime) {

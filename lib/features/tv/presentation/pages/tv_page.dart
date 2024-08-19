@@ -1,8 +1,9 @@
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/tv/presentation/widgets/app_bar.dart';
-import 'package:flixstar/features/tv/presentation/widgets/other_options.dart';
+
 import 'package:flixstar/features/tv/presentation/widgets/overview.dart';
+import 'package:flixstar/features/tv/presentation/widgets/related_tvs.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -48,7 +49,7 @@ class _TvDetailsPageState extends State<TvDetailsPage> {
         buildAppBar(context, widget.tv),
         buildTVOverview(widget.tv),
         buildBannerAd(),
-        buildTVOtherOptions(context, widget.tv),
+        buildSimilarTvs(context)
       ],
     );
   }

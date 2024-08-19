@@ -1,5 +1,5 @@
 import 'package:flixstar/api/gogo_api.dart';
-import 'package:flixstar/common/widgets/heading_2.dart';
+import 'package:flixstar/core/common/widgets/heading_2.dart';
 import 'package:flixstar/core/routes/routes.dart';
 import 'package:flixstar/features/anime/data/models/source_model.dart';
 import 'package:flixstar/features/anime/presentation/widgets/anime_episode_card.dart';

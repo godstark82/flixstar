@@ -2,11 +2,12 @@ part of 'tv_bloc.dart';
 
 abstract class TvState extends Equatable {
   final String? html;
+  final List<TvModel>? similar;
 
-  const TvState({this.html});
+  const TvState({this.html, this.similar});
 
   @override
-  List<Object?> get props => [html];
+  List<Object?> get props => [html, similar];
 }
 
 class TvLoadingState extends TvState {
@@ -14,7 +15,7 @@ class TvLoadingState extends TvState {
 }
 
 class TvLoadedState extends TvState {
-  const TvLoadedState({required super.html});
+  const TvLoadedState({required super.html, required super.similar});
 }
 
 class TvErrorState extends TvState {

@@ -1,7 +1,8 @@
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/features/movie/presentation/widgets/app_bar.dart';
-import 'package:flixstar/features/movie/presentation/widgets/other_options.dart';
 import 'package:flixstar/features/movie/presentation/widgets/overview.dart';
+import 'package:flixstar/features/movie/presentation/widgets/related_movie.dart';
+import 'package:flixstar/features/tv/presentation/widgets/related_tvs.dart';
 import 'package:flutter/material.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -47,7 +48,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
         buildAppBar(context, widget.movie),
         buildOverview(widget.movie),
         buildBannerAD(bannerAd),
-        buildotherOptions(context, widget.movie),
+        buildSimilarMovies(context)
       ],
     );
   }

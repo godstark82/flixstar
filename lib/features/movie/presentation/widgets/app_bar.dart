@@ -1,12 +1,15 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flixstar/common/pages/url_video_player.dart';
-import 'package:flixstar/common/widgets/details_chip.dart';
-import 'package:flixstar/common/widgets/dns_dialogue.dart';
-import 'package:flixstar/common/widgets/play_button.dart';
+import 'package:flixstar/core/common/pages/url_video_player.dart';
+import 'package:flixstar/core/common/widgets/details_chip.dart';
+import 'package:flixstar/core/common/widgets/dns_dialogue.dart';
+import 'package:flixstar/core/common/widgets/play_button.dart';
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_bloc.dart';
 import 'package:flixstar/features/history/presentation/bloc/history_event.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
+import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_state.dart';
@@ -19,15 +22,31 @@ SliverAppBar buildAppBar(BuildContext context, Movie movie) {
   return SliverAppBar(
     primary: true,
     actions: [
-      IconButton(
-          onPressed: () {
-            showDialog(
-                context: context, builder: (context) => dnsDialogue(context));
-          },
-          icon: Icon(
-            Icons.help,
-            color: Colors.white,
-          ))
+      BlocBuilder<LibraryBloc, LibraryState>(
+        builder: (context, libState) {
+          if (libState is LoadedLibraryState) {
+            return IconButton(
+              icon: libState.movies.contains(movie)
+                  ? Icon(
+                      Icons.favorite,
+                      color: Colors.pink,
+                    )
+                  : Icon(
+                      Icons.favorite_border,
+                    ),
+              onPressed: () {
+                !libState.movies.contains(movie)
+                    ? context.read<LibraryBloc>().add(AddMovieToLibrary(movie))
+                    : context
+                        .read<LibraryBloc>()
+                        .add(RemoveMovieFromLibrary(movie));
+              },
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     ],
     bottom: streamMode
         ? PreferredSize(

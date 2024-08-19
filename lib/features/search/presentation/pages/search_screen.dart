@@ -1,7 +1,7 @@
 import 'package:flixstar/features/anime/presentation/widgets/anime_card.dart';
 import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
 import 'package:flixstar/features/search/presentation/pages/search_result_page.dart';
-import 'package:flixstar/common/widgets/heading_widget.dart';
+import 'package:flixstar/core/common/widgets/heading_widget.dart';
 import 'package:flixstar/features/movie/presentation/widgets/movie_card.dart';
 import 'package:flixstar/core/utils/my_snack.dart';
 import 'package:flixstar/features/tv/presentation/widgets/tv_card.dart';

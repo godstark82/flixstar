@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flixstar/api/api.dart';
 import 'package:flixstar/api/gogo_api.dart';
-import 'package:flixstar/common/func/check_update.dart';
-import 'package:flixstar/common/func/fetch_firebase_data.dart';
+import 'package:flixstar/core/common/func/check_update.dart';
+import 'package:flixstar/core/common/func/fetch_firebase_data.dart';
 import 'package:flixstar/features/anime/data/repositories/anime_repo_impl.dart';
 import 'package:flixstar/features/anime/domain/repositories/anime_repository.dart';
 import 'package:flixstar/features/anime/domain/usecases/all_genre_data_usecase.dart';
@@ -19,6 +19,7 @@ import 'package:flixstar/features/movie/domain/repositories/movie_repository.dar
 import 'package:flixstar/features/movie/domain/usecases/genre_detail_usecase.dart';
 import 'package:flixstar/features/movie/domain/usecases/movie_detail_usercase.dart';
 import 'package:flixstar/features/movie/domain/usecases/popular_movies_usecase.dart';
+import 'package:flixstar/features/movie/domain/usecases/related_movies_usecase.dart';
 import 'package:flixstar/features/movie/domain/usecases/top_rated_movie_usecase.dart';
 import 'package:flixstar/features/movie/domain/usecases/trending_movies_usecase.dart';
 import 'package:flixstar/features/movie/presentation/bloc/movie_bloc.dart';
@@ -26,6 +27,7 @@ import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
 import 'package:flixstar/features/tv/data/repositories/tv_repo_impl.dart';
 import 'package:flixstar/features/tv/domain/repositories/tv_repository.dart';
 import 'package:flixstar/features/tv/domain/usecases/genres_data_usecase.dart';
+import 'package:flixstar/features/tv/domain/usecases/related_tv_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/top_rated_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/tv_detail_usecase.dart';
 import 'package:flixstar/features/tv/presentation/bloc/tv_bloc.dart';
@@ -54,7 +56,6 @@ Future<void> dependencies() async {
   // core
   sl.registerSingleton<Dio>(Dio());
 
-
   // api
   sl.registerSingleton<API>(API());
   sl.registerSingleton<Jikan>(Jikan());
@@ -67,6 +68,8 @@ Future<void> dependencies() async {
   sl.registerLazySingleton<TvRepository>(() => TvRepoImpl());
 
   // usecases
+  sl.registerLazySingleton(() => GetRelatedTvUseCase());
+  sl.registerLazySingleton(() => GetRelatedMoviesUseCase());
   sl.registerLazySingleton(() => GetMovieDetailUseCase());
   sl.registerLazySingleton(() => GetAnimeGenresDataUseCase());
   sl.registerLazySingleton(() => GetTrendingMoviesUseCase());
@@ -82,8 +85,9 @@ Future<void> dependencies() async {
   // blocs
   sl.registerFactory<HomeBloc>(
       () => HomeBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
-  sl.registerFactory<MovieBloc>(() => MovieBloc(sl()));
-  sl.registerFactory<TvBloc>(() => TvBloc(sl()));
+  sl.registerFactory<MovieBloc>(() => MovieBloc(sl(), sl()));
+  sl.registerFactory<TvBloc>(
+      () => TvBloc(sl<GetTvDetailsUseCase>(), sl<GetRelatedTvUseCase>()));
   sl.registerFactory<LibraryBloc>(() => LibraryBloc());
   sl.registerFactory<HistoryBloc>(() => HistoryBloc(sl()));
   sl.registerFactory<SearchBloc>(() => SearchBloc());

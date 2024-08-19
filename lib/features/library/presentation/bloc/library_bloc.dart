@@ -4,7 +4,7 @@
 import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
-import 'package:flixstar/core/utils/constants.dart';
+import 'package:flixstar/core/const/constants.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';

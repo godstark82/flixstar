@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
+import 'package:flixstar/features/tv/domain/usecases/related_tv_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/tv_detail_usecase.dart';
 import 'package:equatable/equatable.dart';
 part 'tv_event.dart';
@@ -11,14 +12,15 @@ part 'tv_state.dart';
 
 class TvBloc extends Bloc<TvEvent, TvState> {
   final GetTvDetailsUseCase getTvDetailsUseCase;
+  final GetRelatedTvUseCase getRelatedUseCase;
 
-  TvBloc(this.getTvDetailsUseCase) : super(TvLoadingState()) {
+  TvBloc(this.getTvDetailsUseCase, this.getRelatedUseCase)
+      : super(TvLoadingState()) {
     on<LoadTvEvent>(_onLoadTvDetail);
   }
 
   void _onLoadTvDetail(LoadTvEvent event, Emitter<TvState> emit) async {
     emit(TvLoadingState());
-
 
     int retryCount = 0;
 
@@ -26,9 +28,11 @@ class TvBloc extends Bloc<TvEvent, TvState> {
       try {
         log('Attempting to get TV details... Attempt: ${retryCount + 1}');
         final tvDetailResult = await getTvDetailsUseCase.call(event.tv);
+        final relatedTvs = await getRelatedUseCase.call(event.tv);
 
         if (tvDetailResult is DataSuccess<TvModel>) {
-          emit(TvLoadedState(html: tvDetailResult.data?.source));
+          emit(TvLoadedState(
+              html: tvDetailResult.data?.source, similar: relatedTvs.data));
           return;
         } else {
           retryCount++;
