@@ -24,7 +24,15 @@ class SearchScreen extends StatelessWidget {
                       colors: [Colors.deepPurple, Colors.purple.shade300],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight))),
-          title: TextField(
+          title: FocusScope(
+            autofocus: true,
+            canRequestFocus: true,
+            onFocusChange: (focus) {
+              if (!focus) {
+                focusNode.requestFocus();
+              }
+            },
+            child: TextField(
               focusNode: focusNode,
               autofocus: true,
               style: const TextStyle(color: Colors.white),
@@ -46,7 +54,12 @@ class SearchScreen extends StatelessWidget {
               onChanged: (value) {
                 query = value;
                 context.read<SearchBloc>().add(InitiateSearchEvent(value));
-              })),
+              },
+              onTap: () {
+                focusNode.requestFocus();
+              },
+            ),
+          )),
       body: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           if (state is LoadingSearchState) {

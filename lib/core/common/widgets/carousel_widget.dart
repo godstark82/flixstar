@@ -22,7 +22,7 @@ SliverLayoutBuilder sliverCarouselMovieBar(BuildContext context,
       actions: [
         IconButton(
             onPressed: () {
-              Get.to(() => SearchScreenNew());
+              Get.to(() => SearchScreen());
             },
             icon: Icon(Icons.search))
       ],

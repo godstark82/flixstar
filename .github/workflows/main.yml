@@ -1,3 +1,5 @@
+name: "Build & Release"
+
 on:
   pull_request:
     branches:
@@ -5,17 +7,22 @@ on:
   push:
     branches:
       - master
-name: "Build & Release"
+
 jobs:
   build:
     name: Build & Release
     runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v3
+
+      # Setup Java
       - uses: actions/setup-java@v3
         with:
           distribution: "zulu"
           java-version: "18"
+
+      # Setup Flutter
       - uses: subosito/flutter-action@v2
         with:
           channel: "stable"
@@ -62,18 +69,22 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
 
+      # Build Windows Release
       - name: Build Windows Release
         run: flutter build windows --release
 
+      # Install Inno Setup
       - name: Download Inno Setup
         run: |
           Invoke-WebRequest -Uri https://jrsoftware.org/download.php/is.exe -OutFile is.exe
           Start-Process is.exe -ArgumentList '/VERYSILENT' -Wait
 
+      # Run Inno Setup
       - name: Run Inno Setup
         run: |
           "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" innosetup.iss
 
+      # Upload Installer
       - name: Upload Installer
         uses: actions/upload-artifact@v3
         with:
@@ -88,6 +99,7 @@ jobs:
           tag: ${{ steps.extract_version.outputs.version }}
           token: ${{ secrets.TOKEN }}
 
+      # Upload Installer to Release
       - name: Upload Installer to Release
         uses: actions/upload-release-asset@v1
         env:
