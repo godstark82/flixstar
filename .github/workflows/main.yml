@@ -82,7 +82,7 @@ jobs:
       # Run Inno Setup
       - name: Run Inno Setup
         run: |
-          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" innosetup.iss
+          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" setup.iss
 
       # Upload Installer
       - name: Upload Installer
