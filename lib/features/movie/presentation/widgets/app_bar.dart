@@ -84,7 +84,7 @@ SliverAppBar buildAppBar(BuildContext context, Movie movie) {
                         }
                       },
                     );
-                  } else if (state is MovieErrorState) {
+                  } else {
                     return Center(
                       child: PlayButton(
                           icon: Icon(Icons.help),
@@ -96,7 +96,6 @@ SliverAppBar buildAppBar(BuildContext context, Movie movie) {
                           }),
                     );
                   }
-                  return SizedBox();
                 },
               ),
             ),

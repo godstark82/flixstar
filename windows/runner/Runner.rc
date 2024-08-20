@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "flixstar" "\0"
+            VALUE "CompanyName", "com.venom82" "\0"
+            VALUE "FileDescription", "flixvibes" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "flixstar" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "flixstar.exe" "\0"
-            VALUE "ProductName", "flixstar" "\0"
+            VALUE "InternalName", "flixvibes" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.venom82. All rights reserved." "\0"
+            VALUE "OriginalFilename", "flixvibes.exe" "\0"
+            VALUE "ProductName", "flixvibes" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

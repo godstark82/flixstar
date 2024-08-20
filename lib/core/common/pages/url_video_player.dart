@@ -1,10 +1,14 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flixstar/core/const/const.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fullscreen_window/fullscreen_window.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:keymap/keymap.dart';
 
 class WebVideoPlayer extends StatefulWidget {
   final String html;
@@ -28,48 +32,55 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
   }
 
   void _createInterstitialAd() {
-    InterstitialAd.load(
-        adUnitId: intersititialId1,
-        request: const AdRequest(),
-        adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (InterstitialAd ad) {
-            print('$ad loaded');
-            _interstitialAd = ad;
-            _numInterstitialLoadAttempts = 0;
-            _interstitialAd!.setImmersiveMode(true);
-          },
-          onAdFailedToLoad: (LoadAdError error) {
-            print('InterstitialAd failed to load: $error.');
-            _numInterstitialLoadAttempts += 1;
-            _interstitialAd = null;
-            if (_numInterstitialLoadAttempts < 3) {
-              _createInterstitialAd();
-            }
-          },
-        ));
+    if (!kIsWeb && !Platform.isWindows) {
+      InterstitialAd.load(
+          adUnitId: intersititialId1,
+          request: const AdRequest(),
+          adLoadCallback: InterstitialAdLoadCallback(
+            onAdLoaded: (InterstitialAd ad) {
+              print('$ad loaded');
+              _interstitialAd = ad;
+              _numInterstitialLoadAttempts = 0;
+              _interstitialAd!.setImmersiveMode(true);
+            },
+            onAdFailedToLoad: (LoadAdError error) {
+              print('InterstitialAd failed to load: $error.');
+              _numInterstitialLoadAttempts += 1;
+              _interstitialAd = null;
+              if (_numInterstitialLoadAttempts < 3) {
+                _createInterstitialAd();
+              }
+            },
+          ));
+    }
   }
 
   void _showInterstitialAd() {
-    if (_interstitialAd == null) {
-      log('Warning: attempt to show interstitial before loaded.');
-      return;
+    if (!kIsWeb) {
+      if (!Platform.isWindows) {
+        if (_interstitialAd == null) {
+          log('Warning: attempt to show interstitial before loaded.');
+          return;
+        }
+        _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+          onAdShowedFullScreenContent: (InterstitialAd ad) =>
+              log('ad onAdShowedFullScreenContent.'),
+          onAdDismissedFullScreenContent: (InterstitialAd ad) {
+            log('$ad onAdDismissedFullScreenContent.');
+            ad.dispose();
+            _createInterstitialAd();
+          },
+          onAdFailedToShowFullScreenContent:
+              (InterstitialAd ad, AdError error) {
+            log('$ad onAdFailedToShowFullScreenContent: $error');
+            ad.dispose();
+            _createInterstitialAd();
+          },
+        );
+        _interstitialAd!.show();
+        _interstitialAd = null;
+      }
     }
-    _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (InterstitialAd ad) =>
-          log('ad onAdShowedFullScreenContent.'),
-      onAdDismissedFullScreenContent: (InterstitialAd ad) {
-        log('$ad onAdDismissedFullScreenContent.');
-        ad.dispose();
-        _createInterstitialAd();
-      },
-      onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
-        log('$ad onAdFailedToShowFullScreenContent: $error');
-        ad.dispose();
-        _createInterstitialAd();
-      },
-    );
-    _interstitialAd!.show();
-    _interstitialAd = null;
   }
 
   @override
@@ -89,15 +100,34 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    return EasyWebView(
-      src: widget.html,
-      width: context.height,
-      height: context.width,
-      options: WebViewOptions(
-        navigationDelegate: (WebNavigationRequest request) {
-          return WebNavigationDecision.prevent;
-        },
-        browser: BrowserWebViewOptions(allowFullScreen: true),
+    return KeyboardWidget(
+      bindings: [
+        KeyAction(LogicalKeyboardKey.f11, 'FULLSCREEN', () async {
+          final Size deviceSize = await FullScreenWindow.getScreenSize(context);
+          if (context.width == deviceSize.width &&
+              context.height == deviceSize.height) {
+            FullScreenWindow.setFullScreen(false);
+          } else {
+            FullScreenWindow.setFullScreen(true);
+          }
+        }),
+        KeyAction(LogicalKeyboardKey.arrowLeft, 'Back', () {
+          Get.back();
+        }, isAltPressed: true),
+        KeyAction(LogicalKeyboardKey.keyZ, 'BACK', () {
+          Get.back();
+        }, isControlPressed: true),
+      ],
+      child: EasyWebView(
+        src: widget.html,
+        width: context.height,
+        height: context.width,
+        options: WebViewOptions(
+          navigationDelegate: (WebNavigationRequest request) {
+            return WebNavigationDecision.prevent;
+          },
+          browser: BrowserWebViewOptions(allowFullScreen: true),
+        ),
       ),
     );
   }

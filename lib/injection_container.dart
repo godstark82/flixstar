@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flixstar/api/api.dart';
@@ -32,6 +34,7 @@ import 'package:flixstar/features/tv/domain/usecases/top_rated_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/tv_detail_usecase.dart';
 import 'package:flixstar/features/tv/presentation/bloc/tv_bloc.dart';
 import 'package:flixstar/firebase_options.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -41,8 +44,14 @@ final sl = GetIt.instance;
 
 Future<void> initialiseDependencies() async {
   await dependencies();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await fetchFirebaseData();
+  if (!kIsWeb) {
+    if (!Platform.isWindows) {
+      await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.currentPlatform);
+      await fetchFirebaseData();
+    }
+  }
+
   await checkForNewUpdate();
   await Hive.initFlutter();
   await Future.wait([

@@ -20,11 +20,11 @@ jobs:
         with:
           channel: "stable"
           architecture: x64
-      
+
       # Setup Node.js
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: "16"
 
       # Install js-yaml
       - name: Install js-yaml
@@ -43,6 +43,29 @@ jobs:
       - name: Get Packages
         run: flutter pub get
 
+      # Build Windows App
+      - name: Build Windows App
+        run: flutter build windows
+
+      # Set up Inno Setup
+      - name: Set up Inno Setup
+        run: |
+          choco install innosetup
+        shell: powershell
+
+      # Run Inno Setup to create installer
+      - name: Create Installer
+        run: |
+          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" path\to\your\script.iss
+        shell: powershell
+
+      # Upload Installer as Artifact
+      - name: Upload Installer
+        uses: actions/upload-artifact@v3
+        with:
+          name: installer
+          path: path\to\output\setup.exe
+
       # Build APK
       - name: Build APK
         run: flutter build apk --release --split-per-abi
@@ -60,7 +83,16 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
+          publish_dir:
+            ./build/web
+
+            # Push to GitHub Releases
+      - name: Push to Releases
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "path/to/output/setup.exe"
+          tag: ${{ steps.extract_version.outputs.version }}
+          token: ${{ secrets.TOKEN }}
 
       # Push to Releases
       - name: Push to Releases

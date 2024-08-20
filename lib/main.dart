@@ -1,3 +1,4 @@
+import 'dart:io';
 
 import 'package:flixstar/features/tv/presentation/bloc/tv_bloc.dart';
 import 'package:flutter/foundation.dart';
@@ -20,9 +21,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initialiseDependencies();
   if (!kIsWeb) {
-    await MobileAds.instance
-        .initialize()
-        .then((InitializationStatus status) {});
+    if (!Platform.isWindows) {
+      await MobileAds.instance
+          .initialize()
+          .then((InitializationStatus status) {});
+    }
   }
   runApp(isUpdateAvailable ? UpdateWarningScreen() : App());
 }

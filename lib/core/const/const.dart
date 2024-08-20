@@ -1,7 +1,7 @@
 
 
-bool streamMode = false;
-bool showAds = false;
+bool streamMode = true;
+bool showAds = true;
 bool isUpdateAvailable = false;
 bool forceUpdate = false;
 
