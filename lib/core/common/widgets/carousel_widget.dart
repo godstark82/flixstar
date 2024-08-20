@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flixstar/core/routes/routes.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
 import 'package:flixstar/features/search/presentation/bloc/search_bloc.dart';
+import 'package:flixstar/features/search/presentation/pages/search.dart';
 
 import 'package:flixstar/features/search/presentation/pages/search_screen.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
@@ -21,7 +22,7 @@ SliverLayoutBuilder sliverCarouselMovieBar(BuildContext context,
       actions: [
         IconButton(
             onPressed: () {
-              Get.to(() => SearchScreen());
+              Get.to(() => SearchScreenNew());
             },
             icon: Icon(Icons.search))
       ],

@@ -22,9 +22,7 @@ void main() async {
   await initialiseDependencies();
   if (!kIsWeb) {
     if (!Platform.isWindows) {
-      await MobileAds.instance
-          .initialize()
-          .then((InitializationStatus status) {});
+      await MobileAds.instance.initialize();
     }
   }
   runApp(isUpdateAvailable ? UpdateWarningScreen() : App());

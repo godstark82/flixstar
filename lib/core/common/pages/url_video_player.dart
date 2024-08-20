@@ -100,34 +100,15 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    return KeyboardWidget(
-      bindings: [
-        KeyAction(LogicalKeyboardKey.f11, 'FULLSCREEN', () async {
-          final Size deviceSize = await FullScreenWindow.getScreenSize(context);
-          if (context.width == deviceSize.width &&
-              context.height == deviceSize.height) {
-            FullScreenWindow.setFullScreen(false);
-          } else {
-            FullScreenWindow.setFullScreen(true);
-          }
-        }),
-        KeyAction(LogicalKeyboardKey.arrowLeft, 'Back', () {
-          Get.back();
-        }, isAltPressed: true),
-        KeyAction(LogicalKeyboardKey.keyZ, 'BACK', () {
-          Get.back();
-        }, isControlPressed: true),
-      ],
-      child: EasyWebView(
-        src: widget.html,
-        width: context.height,
-        height: context.width,
-        options: WebViewOptions(
-          navigationDelegate: (WebNavigationRequest request) {
-            return WebNavigationDecision.prevent;
-          },
-          browser: BrowserWebViewOptions(allowFullScreen: true),
-        ),
+    return EasyWebView(
+      src: widget.html,
+      width: context.height,
+      height: context.width,
+      options: WebViewOptions(
+        navigationDelegate: (WebNavigationRequest request) {
+          return WebNavigationDecision.prevent;
+        },
+        browser: BrowserWebViewOptions(allowFullScreen: true),
       ),
     );
   }

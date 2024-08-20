@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
@@ -26,7 +25,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     List<TvModel> tvs = (await repo.searchTv(event.query)).data ?? [];
     BuiltList<Anime> animes =
         (await animeRepo.searchAnime(query: event.query)).data ?? BuiltList([]);
-    log(movies.toString());
     emit(LoadedSearchState(movies, fetchedTv: tvs, fetchedAnimes: animes));
   }
 }
