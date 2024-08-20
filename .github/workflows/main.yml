@@ -43,7 +43,6 @@ jobs:
       - name: Get Packages
         run: flutter pub get
 
-
       # Build APK
       - name: Build APK
         run: flutter build apk --release --split-per-abi
@@ -61,8 +60,25 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir:
-            ./build/web
+          publish_dir: ./build/web
+
+      - name: Build Windows Release
+        run: flutter build windows --release
+
+      - name: Download Inno Setup
+        run: |
+          Invoke-WebRequest -Uri https://jrsoftware.org/download.php/is.exe -OutFile is.exe
+          Start-Process is.exe -ArgumentList '/VERYSILENT' -Wait
+
+      - name: Run Inno Setup
+        run: |
+          "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" innosetup.iss
+
+      - name: Upload Installer
+        uses: actions/upload-artifact@v3
+        with:
+          name: flutter-windows-installer
+          path: output\FlixstarInstaller.exe
 
       # Push to Releases
       - name: Push to Releases
@@ -71,3 +87,13 @@ jobs:
           artifacts: "build/app/outputs/apk/release/*"
           tag: ${{ steps.extract_version.outputs.version }}
           token: ${{ secrets.TOKEN }}
+
+      - name: Upload Installer to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: output/FlixstarInstaller.exe
+          asset_name: FlixstarInstaller.exe
+          asset_content_type: application/octet-stream

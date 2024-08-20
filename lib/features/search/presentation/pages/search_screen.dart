@@ -14,6 +14,7 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FocusNode focusNode = FocusNode(debugLabel: 'SearchFocusNode');
     String? query;
     return Scaffold(
       appBar: AppBar(
@@ -23,28 +24,31 @@ class SearchScreen extends StatelessWidget {
                       colors: [Colors.deepPurple, Colors.purple.shade300],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight))),
-          title: TextFormField(
-              autofocus: true,
-              style: const TextStyle(color: Colors.white),
-              cursorColor: Colors.white,
-              decoration: InputDecoration(
-                  hintText: 'Search...',
-                  hintStyle: TextStyle(color: Colors.white54),
-                  border: InputBorder.none,
-                  suffix: IconButton(
-                      onPressed: () {
-                        if (query != null && query!.isNotEmpty) {
-                          Get.to(() => SearchResultPage(query: query ?? ""));
-                        } else {
-                          MySnackBar.showredSnackBar(context,
-                              message: 'Please Enter a Query');
-                        }
-                      },
-                      icon: Icon(Icons.search))),
-              onChanged: (value) {
-                query = value;
-                context.read<SearchBloc>().add(InitiateSearchEvent(value));
-              })),
+          title: Form(
+            child: TextFormField(
+                focusNode: focusNode,
+                autofocus: true,
+                style: const TextStyle(color: Colors.white),
+                cursorColor: Colors.white,
+                decoration: InputDecoration(
+                    hintText: 'Search...',
+                    hintStyle: TextStyle(color: Colors.white54),
+                    border: InputBorder.none,
+                    suffix: IconButton(
+                        onPressed: () {
+                          if (query != null && query!.isNotEmpty) {
+                            Get.to(() => SearchResultPage(query: query ?? ""));
+                          } else {
+                            MySnackBar.showredSnackBar(context,
+                                message: 'Please Enter a Query');
+                          }
+                        },
+                        icon: Icon(Icons.search))),
+                onChanged: (value) {
+                  query = value;
+                  context.read<SearchBloc>().add(InitiateSearchEvent(value));
+                }),
+          )),
       body: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           if (state is LoadingSearchState) {
