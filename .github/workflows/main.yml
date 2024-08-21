@@ -73,16 +73,11 @@ jobs:
       - name: Build Windows Release
         run: flutter build windows --release
 
-      # Zip Windows Build
-      - name: Zip Windows Build
-        run: Compress-Archive -Path build\windows\runner\Release\* -DestinationPath build\windows\Flixstar-Windows-${{ steps.extract_version.outputs.version }}.zip
-
       # Push to Releases
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
           artifacts: |
             build/app/outputs/apk/release/*
-            build/windows/Flixstar-Windows-${{ steps.extract_version.outputs.version }}.zip
           tag: ${{ steps.extract_version.outputs.version }}
           token: ${{ secrets.TOKEN }}
