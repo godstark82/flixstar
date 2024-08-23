@@ -26,6 +26,7 @@
     <application
         android:label="FlixStar"
         android:enableOnBackInvokedCallback="true"
+        android:hardwareAccelerated="false"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

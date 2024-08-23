@@ -2,7 +2,7 @@ name: flixstar
 description: "A Movies Streaming app"
 publish_to: "none"
 
-version: 1.0.2+102
+version: 1.0.2+103
 
 environment:
   sdk: ">=3.3.4 <4.0.0"
@@ -39,6 +39,8 @@ dependencies:
   google_mobile_ads: ^5.1.0
   version: ^3.0.2
   firebase_analytics: ^11.2.1
+  flutter_dotenv: ^5.1.0
+  # webview_universal: ^0.0.5
 
 
 dev_dependencies:
@@ -53,6 +55,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - .env
     - assets/images/
     - assets/icons/
 
