@@ -14,13 +14,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:jikan_api/jikan_api.dart';
 
+Future<void> logScreenView(String routeName) async {
+  await analytics.logScreenView(screenName: routeName, screenClass: routeName);
+}
+
 class DNavigator {
   // to movie details
-  static void toMovieDetails(Movie movie) {
+  static Future<void> toMovieDetails(Movie movie) async {
     Get.to(() => Builder(builder: (context) {
           context.read<MovieBloc>().add(LoadMovieDetailEvent(movie: movie));
           return MovieDetailsPage(movie: movie);
         }));
+    await logScreenView(movie.title ?? 'Movie Screen');
   }
 
   // to TV Details

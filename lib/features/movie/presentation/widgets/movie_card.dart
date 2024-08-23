@@ -22,8 +22,8 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        DNavigator.toMovieDetails(movie);
+      onTap: () async{
+        await DNavigator.toMovieDetails(movie);
       },
       onLongPress: () async {
         showModalBottomSheet(

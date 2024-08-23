@@ -55,15 +55,18 @@ class DefaultFirebaseOptions {
     messagingSenderId: '163571023666',
     projectId: 'flixvibes-547e5',
     authDomain: 'flixvibes-547e5.firebaseapp.com',
+    databaseURL: 'https://flixvibes-547e5-default-rtdb.firebaseio.com',
     storageBucket: 'flixvibes-547e5.appspot.com',
     measurementId: 'G-FG91Q1WNGY',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBeWHUZOQJiVkrSzdBeEr01Vsf6tZ59a9k',
-    appId: '1:163571023666:android:52e497d263fd6583d6212b',
+    appId: '1:163571023666:android:a03f19f3dcb6d66cd6212b',
     messagingSenderId: '163571023666',
     projectId: 'flixvibes-547e5',
+    databaseURL: 'https://flixvibes-547e5-default-rtdb.firebaseio.com',
     storageBucket: 'flixvibes-547e5.appspot.com',
   );
+
 }

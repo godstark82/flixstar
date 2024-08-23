@@ -44,8 +44,8 @@ SliverLayoutBuilder sliverCarouselMovieBar(BuildContext context,
           items: movies
               .map(
                 (movie) => InkWell(
-                  onTap: () {
-                    DNavigator.toMovieDetails(movie);
+                  onTap: () async{
+                    await DNavigator.toMovieDetails(movie);
                   },
                   child: Container(
                     decoration: BoxDecoration(

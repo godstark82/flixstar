@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flixstar/api/api.dart';
 import 'package:flixstar/api/gogo_api.dart';
@@ -41,6 +42,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jikan_api/jikan_api.dart';
 
 final sl = GetIt.instance;
+final analytics = FirebaseAnalytics.instance;
 
 Future<void> initialiseDependencies() async {
   await dependencies();
@@ -51,6 +53,8 @@ Future<void> initialiseDependencies() async {
       await fetchFirebaseData();
     }
   }
+
+  
 
   await checkForNewUpdate();
   await Hive.initFlutter();
