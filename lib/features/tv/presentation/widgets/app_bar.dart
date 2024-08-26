@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flixstar/core/common/pages/movie_player.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_bloc.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_event.dart';
 import 'package:flixstar/features/library/presentation/bloc/library_state.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
-import 'package:flixstar/core/common/pages/url_video_player.dart';
 import 'package:flixstar/core/common/widgets/details_chip.dart';
 import 'package:flixstar/core/common/widgets/dns_dialogue.dart';
 import 'package:flixstar/core/common/widgets/play_button.dart';
@@ -82,7 +82,7 @@ SliverAppBar buildAppBar(BuildContext context, TvModel movie) {
                                     .add(AddToHistoryEvent(tv: movie));
                               }
                               //! Navigate to Video Player
-                              Get.to(() => WebVideoPlayer(html: state.html!));
+                              Get.to(() => MoviePlayer(html: state.html!));
                             }
                           });
                     } else if (state is TvErrorState) {

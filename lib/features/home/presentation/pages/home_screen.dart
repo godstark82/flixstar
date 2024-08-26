@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (v) async {
+      onPopInvokedWithResult: (v, result) async {
         await confirmExitDialoge(context);
       },
       child: Scaffold(

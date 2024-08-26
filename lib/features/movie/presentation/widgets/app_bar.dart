@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flixstar/core/common/pages/url_video_player.dart';
+import 'package:flixstar/core/common/pages/movie_player.dart';
 import 'package:flixstar/core/common/widgets/details_chip.dart';
 import 'package:flixstar/core/common/widgets/dns_dialogue.dart';
 import 'package:flixstar/core/common/widgets/play_button.dart';
@@ -80,7 +80,7 @@ SliverAppBar buildAppBar(BuildContext context, Movie movie) {
                                 .read<HistoryBloc>()
                                 .add(AddToHistoryEvent(movie: movie));
                           }
-                          Get.to(() => WebVideoPlayer(html: state.sourceHtml!));
+                          Get.to(() => MoviePlayer(html: state.sourceHtml!));
                         }
                       },
                     );

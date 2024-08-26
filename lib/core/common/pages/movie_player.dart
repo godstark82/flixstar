@@ -8,20 +8,21 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class WebVideoPlayer extends StatefulWidget {
+class MoviePlayer extends StatefulWidget {
   final String html;
-  const WebVideoPlayer({super.key, required this.html});
+  const MoviePlayer({super.key, required this.html});
 
   @override
-  State<WebVideoPlayer> createState() => _WebVideoPlayerState();
+  State<MoviePlayer> createState() => _WebVideoPlayerState();
 }
 
 // COmment
 //
 
-class _WebVideoPlayerState extends State<WebVideoPlayer> {
+class _WebVideoPlayerState extends State<MoviePlayer> {
   InterstitialAd? _interstitialAd;
   int _numInterstitialLoadAttempts = 0;
+
   @override
   void initState() {
     _createInterstitialAd();
@@ -98,16 +99,20 @@ class _WebVideoPlayerState extends State<WebVideoPlayer> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    return EasyWebView(
-      src: widget.html,
-      width: context.height,
-      height: context.width,
-      options: WebViewOptions(
-        navigationDelegate: (WebNavigationRequest request) {
-          return WebNavigationDecision.prevent;
-        },
-        browser: BrowserWebViewOptions(allowFullScreen: true),
-      ),
-    );
+    return buildEZWV(context, widget.html);
   }
+}
+
+EasyWebView buildEZWV(BuildContext context, String url) {
+  return EasyWebView(
+    src: url,
+    width: context.height,
+    height: context.width,
+    options: WebViewOptions(
+      navigationDelegate: (WebNavigationRequest request) {
+        return WebNavigationDecision.prevent;
+      },
+      browser: BrowserWebViewOptions(allowFullScreen: true),
+    ),
+  );
 }

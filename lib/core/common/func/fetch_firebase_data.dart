@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flixstar/core/const/const.dart';
+import 'package:flixstar/core/const/constants.dart';
 import 'package:flutter/foundation.dart';
 
 Future<void> fetchFirebaseData() async {
@@ -16,11 +17,12 @@ Future<void> fetchFirebaseData() async {
         bool _streamMode = settings?['streamMode'] ?? false;
         bool _showAds = settings?['showAds'] ?? false;
         bool _forceUpdate = settings?['forceUpdate'] ?? false;
+        String vidsrcBase = settings?['vidsrc_base'] ?? 'https://vidsrc.cc/v2/';
+        vidSrcBaseUrl = vidsrcBase;
         streamMode = _streamMode;
         showAds = _showAds;
         forceUpdate = _forceUpdate;
       } catch (e) {
-        
         debugPrint(e.toString());
         rethrow;
       }
