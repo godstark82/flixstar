@@ -65,10 +65,10 @@ class MoreOptionScreen extends StatelessWidget {
             ListTile(
               onTap: () async {
                 if (await canLaunchUrl(Uri.parse(
-                    'https://github.com/godstark82/flixstar/releases'))) {
+                    'flixstar.shop'))) {
                   launchUrl(
                     Uri.parse(
-                        'https://github.com/godstark82/flixstar/releases'),
+                        'flixstar.shop'),
                     mode: LaunchMode.externalApplication,
                   );
                 }
@@ -88,7 +88,7 @@ class MoreOptionScreen extends StatelessWidget {
             ListTile(
               onTap: () async {
                 await Share.share(
-                    'Hey Checkout this amazing app for streaming Movies, Web Series and Animes from here : - https://github.com/godstark82/flixstar/releases',
+                    'Hey Checkout this amazing app for streaming Movies, Web Series and Animes from here : - flixstar.shop',
                     subject: 'Crucifix App');
               },
               leading: Icon(Icons.share, color: Colors.grey.withOpacity(0.5)),

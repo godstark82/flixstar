@@ -53,7 +53,7 @@ class UpdateWarningScreen extends StatelessWidget {
                           Colors.purple.withOpacity(0.1))),
                   onPressed: () {
                     launchUrl(Uri.parse(
-                        'https://github.com/godstark82/flixstar/releases'));
+                        'flixstar.shop'));
                   },
                   child: Text('Update')),
             ],
