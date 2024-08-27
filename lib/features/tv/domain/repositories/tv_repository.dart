@@ -7,7 +7,7 @@ abstract class TvRepository {
 
   Future<DataState<List<TvModel>>> getTopRated();
 
-  Future<DataState<TvModel>> getTvDetails(TvModel tv);
+  Future<DataState<TvModel>> getTvDetails(int id);
 
   Future<DataState<List<TvModel>>> getRelatedTvs(TvModel tv);
 

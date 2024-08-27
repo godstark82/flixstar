@@ -81,10 +81,12 @@ class TvRepoImpl implements TvRepository {
   }
 
   @override
-  Future<DataState<TvModel>> getTvDetails(TvModel tv) async {
+  Future<DataState<TvModel>> getTvDetails(int id) async {
     try {
-      final newTv = tv.copyWith(source: await api.getTvSource(tv.id!));
-      return DataSuccess(newTv);
+      final tvMap =
+          (await api.tmdb.v3.tv.getDetails(id)).cast<String, dynamic>();
+      final tv = TvModel.fromJson(tvMap);
+      return DataSuccess(tv);
     } catch (e) {
       return DataFailed(DioException(requestOptions: RequestOptions(data: e)));
     }

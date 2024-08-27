@@ -10,4 +10,4 @@ class Boxes {
 }
 
 const String consumetApiBaseUrl = 'https://api-consumet-org-brown.vercel.app';
-String vidSrcBaseUrl = 'https://vidsrc.cc/v2/';
+String vidSrcBaseUrl = 'https://vidsrc.cc/v2';

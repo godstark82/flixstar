@@ -54,8 +54,6 @@ Future<void> initialiseDependencies() async {
     }
   }
 
-  
-
   await checkForNewUpdate();
   await Hive.initFlutter();
   await Future.wait([
@@ -98,7 +96,7 @@ Future<void> dependencies() async {
   // blocs
   sl.registerFactory<HomeBloc>(
       () => HomeBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl()));
-  sl.registerFactory<MovieBloc>(() => MovieBloc(sl(), sl()));
+  sl.registerFactory<MovieBloc>(() => MovieBloc(sl()));
   sl.registerFactory<TvBloc>(
       () => TvBloc(sl<GetTvDetailsUseCase>(), sl<GetRelatedTvUseCase>()));
   sl.registerFactory<LibraryBloc>(() => LibraryBloc());

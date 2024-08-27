@@ -1,5 +1,5 @@
 import 'package:flixstar/features/anime/data/models/source_model.dart';
-import 'package:flixstar/core/common/pages/movie_player.dart';
+import 'package:flixstar/core/player/anime_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jikan_api/jikan_api.dart';
@@ -64,5 +64,5 @@ void toAnimeVideoPlayer(String url) async {
   final String playerUrl =
       'https://bharadwajpro.github.io/m3u8-player/player/#$url';
   print(playerUrl);
-  await Get.to(() => MoviePlayer(html: playerUrl));
+  await Get.to(() => AnimePlayer(source: playerUrl));
 }

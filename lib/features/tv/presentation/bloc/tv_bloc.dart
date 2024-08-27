@@ -1,8 +1,4 @@
-import 'dart:async';
-import 'dart:developer';
 import 'package:bloc/bloc.dart';
-import 'package:flixstar/core/const/const.dart';
-import 'package:flixstar/core/resources/data_state.dart';
 import 'package:flixstar/features/tv/data/models/tv_model.dart';
 import 'package:flixstar/features/tv/domain/usecases/related_tv_usecase.dart';
 import 'package:flixstar/features/tv/domain/usecases/tv_detail_usecase.dart';
@@ -22,39 +18,15 @@ class TvBloc extends Bloc<TvEvent, TvState> {
   void _onLoadTvDetail(LoadTvEvent event, Emitter<TvState> emit) async {
     emit(TvLoadingState());
 
-    int retryCount = 0;
+    try {
+      final relatedTvs = await getRelatedUseCase.call(event.tv);
 
-    while (retryCount < maxRetries) {
-      try {
-        log('Attempting to get TV details... Attempt: ${retryCount + 1}');
-        final tvDetailResult = await getTvDetailsUseCase.call(event.tv);
-        final relatedTvs = await getRelatedUseCase.call(event.tv);
-
-        if (tvDetailResult is DataSuccess<TvModel>) {
-          emit(TvLoadedState(
-              html: tvDetailResult.data?.source, similar: relatedTvs.data));
-          return;
-        } else {
-          retryCount++;
-          log('Retry Count: $retryCount');
-          if (retryCount >= maxRetries) {
-            emit(TvErrorState());
-            return;
-          }
-        }
-      } catch (e) {
-        log('Retry Count: $retryCount');
-        log('Exception occurred: $e. Retrying... ($retryCount/$maxRetries)');
-        retryCount++;
-        if (retryCount >= maxRetries) {
-          log('Maximum retry attempts reached. Returning TvErrorState.');
-          emit(TvErrorState());
-          return;
-        }
-
-        await Future.delayed(
-            Duration(milliseconds: 300)); // Add a delay before retrying
-      }
+      emit(TvLoadedState(
+        similar: relatedTvs.data,
+      ));
+      return;
+    } catch (e) {
+      emit(TvErrorState());
     }
   }
 }

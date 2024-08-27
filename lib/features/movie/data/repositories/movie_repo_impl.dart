@@ -55,7 +55,7 @@ class MovieRepositoryImpl implements MovieRepository {
   @override
   Future<DataState<Movie>> getMovieDetail({required Movie movie}) async {
     try {
-      final String html = await api.getMovieSource(movie.id!);
+      final String html = api.getMovieSource(movie.id!);
       return DataSuccess(movie.copyWith(source: html));
     } catch (e) {
       return DataFailed(DioException(requestOptions: RequestOptions(data: e)));

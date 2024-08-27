@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flixstar/core/player/movie_player.dart';
+import 'package:flixstar/core/player/tv_player.dart';
 import 'package:flixstar/features/tv/presentation/bloc/tv_bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +53,21 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: theme,
           home: Home(),
+          getPages: [
+            GetPage(name: '/', page: () => Home()),
+            GetPage(
+                name: '/watch/movie/:mid',
+                page: () {
+                  final id = (Get.parameters['mid'] ?? 0);
+                  return MoviePlayer(id: int.parse(id.toString()));
+                }),
+            GetPage(
+                name: '/watch/tv/:tid',
+                page: () {
+                  final id = (Get.parameters['tid'] ?? 0);
+                  return TvPlayer(id: int.parse(id.toString()));
+                }),
+          ],
         ));
   }
 }

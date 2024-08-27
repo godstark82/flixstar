@@ -16,13 +16,13 @@ class API {
       defaultLanguage: 'en-US');
   TMDB get tmdb => _tmdb;
 
-  Future<String> getMovieSource(int id) async {
+  String getMovieSource(int id) {
     String movieUrl = '$vidSrcBaseUrl/embed/movie/$id';
     log('Getting Movie Source from url $movieUrl');
     return movieUrl;
   }
 
-  Future<String> getTvSource(int id) async {
+  String getTvSource(int id) {
     String tvUrl = '$vidSrcBaseUrl/embed/tv/$id';
     return tvUrl;
   }

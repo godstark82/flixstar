@@ -1,30 +1,35 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:easy_web_view/easy_web_view.dart';
+import 'package:flixstar/api/api.dart';
 import 'package:flixstar/core/const/const.dart';
+import 'package:flixstar/injection_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class MoviePlayer extends StatefulWidget {
-  final String html;
-  const MoviePlayer({super.key, required this.html});
+class TvPlayer extends StatefulWidget {
+  final int id;
+  const TvPlayer({super.key, required this.id});
 
   @override
-  State<MoviePlayer> createState() => _WebVideoPlayerState();
+  State<TvPlayer> createState() => _WebVideoPlayerState();
 }
 
 // COmment
 //
 
-class _WebVideoPlayerState extends State<MoviePlayer> {
+class _WebVideoPlayerState extends State<TvPlayer> {
   InterstitialAd? _interstitialAd;
   int _numInterstitialLoadAttempts = 0;
+  String source = '';
 
   @override
   void initState() {
+    final api = sl<API>();
+    source = api.getTvSource(widget.id);
     _createInterstitialAd();
 
     super.initState();
@@ -99,11 +104,12 @@ class _WebVideoPlayerState extends State<MoviePlayer> {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    return buildEZWV(context, widget.html);
+    return buildEZWV(context, source);
   }
 }
 
 EasyWebView buildEZWV(BuildContext context, String url) {
+  log('Current URL is: $url');
   return EasyWebView(
     src: url,
     width: context.height,

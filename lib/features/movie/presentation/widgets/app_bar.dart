@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flixstar/core/common/pages/movie_player.dart';
 import 'package:flixstar/core/common/widgets/details_chip.dart';
 import 'package:flixstar/core/common/widgets/dns_dialogue.dart';
 import 'package:flixstar/core/common/widgets/play_button.dart';
@@ -64,24 +63,21 @@ SliverAppBar buildAppBar(BuildContext context, Movie movie) {
                     );
                   } else if (state is MovieLoadedState) {
                     return PlayButton(
-                      icon: Icon(state.sourceHtml != null
-                          ? Icons.play_arrow
-                          : Icons.info),
-                      label: Text(
-                          state.sourceHtml != null ? 'Play' : 'Coming Soon..'),
+                      icon: Icon(Icons.play_arrow),
+                      label: Text('Play'),
                       onPressed: () async {
-                        if (state.sourceHtml != null) {
-                          if (!context
+                        if (!context
+                            .read<HistoryBloc>()
+                            .state
+                            .movies
+                            .contains(movie)) {
+                          context
                               .read<HistoryBloc>()
-                              .state
-                              .movies
-                              .contains(movie)) {
-                            context
-                                .read<HistoryBloc>()
-                                .add(AddToHistoryEvent(movie: movie));
-                          }
-                          Get.to(() => MoviePlayer(html: state.sourceHtml!));
+                              .add(AddToHistoryEvent(movie: movie));
                         }
+                        // Get.to(() => MoviePlayer(id: movie.id!));
+                        Get.toNamed('/watch/movie/${movie.id}',
+                            parameters: {'mid': movie.id.toString()});
                       },
                     );
                   } else {
