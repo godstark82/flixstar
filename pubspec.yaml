@@ -2,7 +2,7 @@ name: flixstar
 description: "A Movies Streaming app"
 publish_to: "none"
 
-version: 2.0.2+108
+version: 2.0.2+109
 
 environment:
   sdk: ">=3.3.4 <4.0.0"
@@ -36,12 +36,13 @@ dependencies:
   firebase_core: ^3.1.1
   cloud_firestore: ^5.0.2
   package_info_plus: ^8.0.0
-  google_mobile_ads: ^5.1.0
+  # google_mobile_ads: ^5.1.0
   version: ^3.0.2
   firebase_analytics: ^11.2.1
   flutter_dotenv: ^5.1.0
   # webview_flutter: ^4.9.0
   http: ^1.2.2
+  startapp_sdk: ^1.0.1
   # webview_universal: ^0.0.5
 
 

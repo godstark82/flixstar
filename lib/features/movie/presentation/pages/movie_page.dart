@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:flixstar/core/const/const.dart';
 import 'package:flixstar/features/movie/presentation/widgets/app_bar.dart';
 import 'package:flixstar/features/movie/presentation/widgets/overview.dart';
 import 'package:flixstar/features/movie/presentation/widgets/related_movie.dart';
+import 'package:flixstar/injection_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flixstar/features/movie/data/models/movie_model.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:startapp_sdk/startapp.dart';
 
 class MovieDetailsPage extends StatefulWidget {
   final Movie movie;
@@ -18,25 +18,22 @@ class MovieDetailsPage extends StatefulWidget {
 }
 
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
-  BannerAd? bannerAd;
+  final startAppSdk = sl<StartAppSdk>();
+  StartAppBannerAd? bannerAd;
 
   @override
   void initState() {
     if (!kIsWeb) {
       if (!Platform.isWindows) {
-        bannerAd = BannerAd(
-          adUnitId: bannerId1,
-          size: AdSize.banner,
-          request: const AdRequest(),
-          listener: BannerAdListener(
-            onAdLoaded: (Ad ad) => print('BannerAd loaded.'),
-            onAdFailedToLoad: (Ad ad, LoadAdError error) {
-              ad.dispose();
-              print('BannerAd failed to load: $error');
-            },
-          ),
-        );
-        bannerAd?.load();
+        startAppSdk.loadBannerAd(StartAppBannerType.BANNER).then((bannerAd) {
+          setState(() {
+            this.bannerAd = bannerAd;
+          });
+        }).onError<StartAppException>((ex, stackTrace) {
+          debugPrint("Error loading Banner ad: ${ex.message}");
+        }).onError((error, stackTrace) {
+          debugPrint("Error loading Banner ad: $error");
+        });
       }
     }
     super.initState();
@@ -65,13 +62,13 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   }
 }
 
-SliverToBoxAdapter buildBannerAD(BannerAd? bannerAd) {
+SliverToBoxAdapter buildBannerAD(StartAppBannerAd? bannerAd) {
   if (!kIsWeb) {
     if (!Platform.isWindows) {
       return SliverToBoxAdapter(
         child: bannerAd == null
             ? SizedBox()
-            : SizedBox(height: 50, child: AdWidget(ad: bannerAd)),
+            : SizedBox(height: 50, child: StartAppBanner(bannerAd)),
       );
     }
   }

@@ -40,6 +40,7 @@ import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:jikan_api/jikan_api.dart';
+import 'package:startapp_sdk/startapp.dart';
 
 final sl = GetIt.instance;
 final analytics = FirebaseAnalytics.instance;
@@ -66,6 +67,7 @@ Future<void> initialiseDependencies() async {
 Future<void> dependencies() async {
   // core
   sl.registerSingleton<Dio>(Dio());
+  sl.registerSingleton<StartAppSdk>(StartAppSdk());
 
   // api
   sl.registerSingleton<API>(API());

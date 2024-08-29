@@ -2,13 +2,14 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:easy_web_view/easy_web_view.dart';
 import 'package:flixstar/api/api.dart';
-import 'package:flixstar/core/const/const.dart';
+
 import 'package:flixstar/injection_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+import 'package:startapp_sdk/startapp.dart';
 
 class MoviePlayer extends StatefulWidget {
   final int id;
@@ -22,8 +23,8 @@ class MoviePlayer extends StatefulWidget {
 //
 
 class _WebVideoPlayerState extends State<MoviePlayer> {
-  InterstitialAd? _interstitialAd;
-  int _numInterstitialLoadAttempts = 0;
+  StartAppInterstitialAd? _interstitialAd;
+  final startApp = sl<StartAppSdk>();
   String source = '';
 
   @override
@@ -37,25 +38,14 @@ class _WebVideoPlayerState extends State<MoviePlayer> {
 
   void _createInterstitialAd() {
     if (!kIsWeb && !Platform.isWindows) {
-      InterstitialAd.load(
-          adUnitId: intersititialId1,
-          request: const AdRequest(),
-          adLoadCallback: InterstitialAdLoadCallback(
-            onAdLoaded: (InterstitialAd ad) {
-              print('$ad loaded');
-              _interstitialAd = ad;
-              _numInterstitialLoadAttempts = 0;
-              _interstitialAd!.setImmersiveMode(true);
-            },
-            onAdFailedToLoad: (LoadAdError error) {
-              print('InterstitialAd failed to load: $error.');
-              _numInterstitialLoadAttempts += 1;
-              _interstitialAd = null;
-              if (_numInterstitialLoadAttempts < 3) {
-                _createInterstitialAd();
-              }
-            },
-          ));
+      startApp.loadInterstitialAd().then((ad) {
+        setState(() {
+          _interstitialAd = ad;
+        });
+      }).onError((ex, stackTrace) {
+        _interstitialAd = null;
+        debugPrint("Error Loading Interstitial Ad: $ex");
+      });
     }
   }
 
@@ -66,23 +56,23 @@ class _WebVideoPlayerState extends State<MoviePlayer> {
           log('Warning: attempt to show interstitial before loaded.');
           return;
         }
-        _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
-          onAdShowedFullScreenContent: (InterstitialAd ad) =>
-              log('ad onAdShowedFullScreenContent.'),
-          onAdDismissedFullScreenContent: (InterstitialAd ad) {
-            log('$ad onAdDismissedFullScreenContent.');
-            ad.dispose();
-            _createInterstitialAd();
-          },
-          onAdFailedToShowFullScreenContent:
-              (InterstitialAd ad, AdError error) {
-            log('$ad onAdFailedToShowFullScreenContent: $error');
-            ad.dispose();
-            _createInterstitialAd();
-          },
-        );
-        _interstitialAd!.show();
-        _interstitialAd = null;
+        if (_interstitialAd != null) {
+          _interstitialAd!.show().then((shown) {
+            if (shown) {
+              setState(() {
+                // NOTE interstitial ad can be shown only once
+                _interstitialAd = null;
+
+                // NOTE load again
+                _createInterstitialAd();
+              });
+            }
+
+            return null;
+          }).onError((error, stackTrace) {
+            debugPrint("Error showing Interstitial ad: $error");
+          });
+        }
       }
     }
   }

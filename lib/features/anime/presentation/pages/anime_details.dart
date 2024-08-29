@@ -3,10 +3,11 @@ import 'package:flixstar/features/anime/presentation/pages/components/app_bar.da
 import 'package:flixstar/features/anime/presentation/pages/components/episodes.dart';
 import 'package:flixstar/features/anime/presentation/pages/components/other_options.dart';
 import 'package:flixstar/features/anime/presentation/pages/components/overview.dart';
+import 'package:flixstar/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:jikan_api/jikan_api.dart';
+import 'package:startapp_sdk/startapp.dart';
 
 class AnimeDetailsPage extends StatefulWidget {
   final Anime anime;
@@ -17,29 +18,24 @@ class AnimeDetailsPage extends StatefulWidget {
 }
 
 class _AnimeDetailsPageState extends State<AnimeDetailsPage> {
-  BannerAd bannerAd = BannerAd(
-    adUnitId: bannerId1,
-    size: AdSize.banner,
-    request: const AdRequest(),
-    listener: BannerAdListener(
-      onAdLoaded: (Ad ad) => print('BannerAd loaded.'),
-      onAdFailedToLoad: (Ad ad, LoadAdError error) {
-        ad.dispose();
-        print('BannerAd failed to load: $error');
-      },
-    ),
-  );
+  final startApp = sl<StartAppSdk>();
+  StartAppBannerAd? bannerAd;
 
   @override
   void initState() {
-    bannerAd.load();
+    startApp.loadBannerAd(StartAppBannerType.BANNER).then((ad) {
+      bannerAd = ad;
+      setState(() {});
+    }).onError((error, stackTrace) {
+      debugPrint("Error loading Banner ad: $error");
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
-    bannerAd.dispose();
+    bannerAd?.dispose();
   }
 
   @override
@@ -59,10 +55,12 @@ class _AnimeDetailsPageState extends State<AnimeDetailsPage> {
 
   SliverToBoxAdapter buildBannerAD() {
     return SliverToBoxAdapter(
-      child: SizedBox(
-        height: 50,
-        child: AdWidget(ad: bannerAd),
-      ),
+      child: bannerAd != null
+          ? SizedBox(
+              height: 50,
+              child: StartAppBanner(bannerAd!),
+            )
+          : SizedBox(),
     );
   }
 }
